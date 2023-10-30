@@ -35,8 +35,8 @@ Validation
   - Folder with util logic
 - resources
   - prod, dev, local, common, secret
-    - secret: A place to write variables that need to be hidden
-    - common: A place to write common variables for the project
+    - secret: This file to write variables that need to be hidden
+    - common: This file to write common variables for the project
 
 ### Note
 - cors
