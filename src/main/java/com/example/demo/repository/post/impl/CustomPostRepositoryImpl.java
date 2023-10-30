@@ -4,7 +4,6 @@ import static com.example.demo.domain.post.entity.QPost.post;
 
 import com.example.demo.domain.post.dto.serve.GetExcludeUsersPostsRequest;
 import com.example.demo.domain.post.dto.serve.GetPostResponse;
-import com.example.demo.domain.post.entity.Post;
 import com.example.demo.repository.post.CustomPostRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -23,14 +22,12 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
     GetExcludeUsersPostsRequest dto,
     Pageable pageable
   ) {
-    List<Post> excludeUsersPosts = jpaQueryFactory
+    return jpaQueryFactory
       .selectFrom(post)
       .where(post.user.id.notIn(dto.getUserIds()))
       .offset(pageable.getOffset())
       .limit(pageable.getPageSize())
-      .fetch();
-
-    return excludeUsersPosts
+      .fetch()
       .stream()
       .map(GetPostResponse::new)
       .collect(Collectors.toList());
