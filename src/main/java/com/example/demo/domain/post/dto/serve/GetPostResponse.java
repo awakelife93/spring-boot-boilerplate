@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 @Getter
 @Accessors(chain = true)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GetPostResponse {
 
   private Long postId;
