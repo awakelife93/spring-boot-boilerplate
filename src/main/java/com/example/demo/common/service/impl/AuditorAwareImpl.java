@@ -20,7 +20,14 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
       return null;
     }
 
-    UserAdapter userAdapter = (UserAdapter) authentication.getPrincipal();
+    Object principal = authentication.getPrincipal();
+
+    if (principal.equals("anonymousUser")) {
+      return null;
+    }
+
+    UserAdapter userAdapter = (UserAdapter) principal;
+
     SecurityUserItem securityUserItem = userAdapter.getSecurityUserItem();
 
     return Optional.of(securityUserItem.getUserId());
