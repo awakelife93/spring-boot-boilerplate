@@ -35,18 +35,14 @@ public class ChangeUserServiceImpl implements ChangeUserService {
   @Override
   public UpdateUserResponse updateUser(Long userId, UpdateUserRequest dto) {
     final User user = userService.validateReturnUser(userId).update(dto);
-    return UpdateUserResponse.builder().user(user).build();
+    return UpdateUserResponse.of(user);
   }
 
   @Override
   public UpdateMeResponse updateMe(Long userId, UpdateUserRequest dto) {
     final User user = userService.validateReturnUser(userId).update(dto);
 
-    return UpdateMeResponse
-      .builder()
-      .user(user)
-      .accessToken(tokenService.createFullTokens(user))
-      .build();
+    return UpdateMeResponse.of(user, tokenService.createFullTokens(user));
   }
 
   @Override

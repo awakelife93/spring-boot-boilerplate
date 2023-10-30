@@ -37,15 +37,11 @@ public class TokenService {
   }
 
   public String createAccessToken(User user) {
-    return jwtProvider.createAccessToken(
-      SecurityUserItem.convertSecurityUserItem(user)
-    );
+    return jwtProvider.createAccessToken(SecurityUserItem.of(user));
   }
 
   public String createRefreshToken(User user) {
-    return jwtProvider.createRefreshToken(
-      SecurityUserItem.convertSecurityUserItem(user)
-    );
+    return jwtProvider.createRefreshToken(SecurityUserItem.of(user));
   }
 
   public String refreshAccessToken(SecurityUserItem securityUserItem) {

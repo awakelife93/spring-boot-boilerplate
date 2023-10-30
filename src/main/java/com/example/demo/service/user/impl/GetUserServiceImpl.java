@@ -27,7 +27,7 @@ public class GetUserServiceImpl implements GetUserService {
       return null;
     }
 
-    return GetUserResponse.builder().user(user).build();
+    return GetUserResponse.of(user);
   }
 
   @Override
@@ -38,7 +38,7 @@ public class GetUserServiceImpl implements GetUserService {
       return null;
     }
 
-    return GetUserResponse.builder().user(user).build();
+    return GetUserResponse.of(user);
   }
 
   @Override

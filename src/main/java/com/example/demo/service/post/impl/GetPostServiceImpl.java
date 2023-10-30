@@ -28,7 +28,7 @@ public class GetPostServiceImpl implements GetPostService {
       return null;
     }
 
-    return GetPostResponse.builder().post(post).build();
+    return GetPostResponse.of(post);
   }
 
   @Override

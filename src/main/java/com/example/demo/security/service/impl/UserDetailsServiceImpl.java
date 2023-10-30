@@ -21,6 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     throws UsernameNotFoundException {
     User user = userService.validateReturnUser(Long.valueOf(userId));
 
-    return new UserAdapter(SecurityUserItem.builder().user(user).build());
+    return new UserAdapter(SecurityUserItem.of(user));
   }
 }

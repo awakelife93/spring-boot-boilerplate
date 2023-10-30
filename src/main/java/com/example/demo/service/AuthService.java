@@ -37,21 +37,13 @@ public class AuthService {
 
     final User user = ChangeUserService.createUser(dto);
 
-    return CreateUserResponse
-      .builder()
-      .user(user)
-      .accessToken(tokenService.createFullTokens(user))
-      .build();
+    return CreateUserResponse.of(user, tokenService.createFullTokens(user));
   }
 
   public SignInResponse signIn(SignInRequest dto) {
     final User user = userService.validateAuthReturnUser(dto);
 
-    return SignInResponse
-      .builder()
-      .user(user)
-      .accessToken(tokenService.createFullTokens(user))
-      .build();
+    return SignInResponse.of(user, tokenService.createFullTokens(user));
   }
 
   public void signOut(Long userId) {

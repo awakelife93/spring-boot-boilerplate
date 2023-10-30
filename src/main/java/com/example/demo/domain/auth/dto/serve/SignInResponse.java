@@ -2,12 +2,15 @@ package com.example.demo.domain.auth.dto.serve;
 
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.domain.user.entity.User;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Getter
 @Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignInResponse {
 
   private Long userId;
@@ -27,5 +30,9 @@ public class SignInResponse {
     this.name = user.getName();
     this.email = user.getEmail();
     this.accessToken = accessToken;
+  }
+
+  public static SignInResponse of(User user, String accessToken) {
+    return SignInResponse.builder().user(user).accessToken(accessToken).build();
   }
 }

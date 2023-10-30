@@ -27,7 +27,7 @@ public class SecurityUserItem {
     this.email = user.getEmail();
   }
 
-  public static SecurityUserItem convertSecurityUserItem(User user) {
+  public static SecurityUserItem of(User user) {
     return SecurityUserItem.builder().user(user).build();
   }
 }

@@ -76,10 +76,6 @@ public class User extends BaseEntity {
     return bCryptPasswordEncoder.matches(password, this.password);
   }
 
-  public User toEntity() {
-    return User.builder().email(email).name(name).password(password).build();
-  }
-
   public static User toEntity(
     String email,
     String name,

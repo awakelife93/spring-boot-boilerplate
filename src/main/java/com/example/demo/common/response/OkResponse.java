@@ -1,9 +1,7 @@
 package com.example.demo.common.response;
 
-import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
 public class OkResponse {
 

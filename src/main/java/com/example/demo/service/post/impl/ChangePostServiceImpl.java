@@ -32,13 +32,13 @@ public class ChangePostServiceImpl implements ChangePostService {
       dto.getContent(),
       user
     );
-    return CreatePostResponse.builder().post(postRepository.save(post)).build();
+    return CreatePostResponse.of(postRepository.save(post));
   }
 
   @Override
   public UpdatePostResponse updatePost(Long postId, UpdatePostRequest dto) {
     final Post post = postService.validateReturnPost(postId).update(dto);
-    return UpdatePostResponse.builder().post(post).build();
+    return UpdatePostResponse.of(post);
   }
 
   @Override

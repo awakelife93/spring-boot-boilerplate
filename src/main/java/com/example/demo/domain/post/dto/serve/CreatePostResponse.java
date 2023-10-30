@@ -2,12 +2,15 @@ package com.example.demo.domain.post.dto.serve;
 
 import com.example.demo.domain.post.dto.Writer;
 import com.example.demo.domain.post.entity.Post;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Getter
 @Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CreatePostResponse {
 
   private Long postId;
@@ -27,11 +30,14 @@ public class CreatePostResponse {
     this.subTitle = post.getSubTitle();
     this.content = post.getContent();
     this.writer =
-      Writer
-        .builder()
-        .userId(post.getUser().getId())
-        .email(post.getUser().getEmail())
-        .name(post.getUser().getName())
-        .build();
+      Writer.of(
+        post.getUser().getId(),
+        post.getUser().getEmail(),
+        post.getUser().getName()
+      );
+  }
+
+  public static CreatePostResponse of(Post post) {
+    return builder().post(post).build();
   }
 }
