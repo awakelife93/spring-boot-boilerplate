@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: common
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    open-in-view: false
+    hibernate.jdbc.time_zone: UTC
+  error:
+    include-exception: false
+    include-message: always
+    inclue-stacktrace: on_param
+    whitelabel.enabled: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources.add-mappings: false
+server:
+  servlet:
+    encoding:
+      force-response: true

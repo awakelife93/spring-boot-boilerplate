@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    properties:
+      "[hibernate.hbm2ddl.auto]": validate
