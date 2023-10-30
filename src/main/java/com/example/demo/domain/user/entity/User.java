@@ -19,6 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -73,5 +74,24 @@ public class User extends BaseEntity {
     BCryptPasswordEncoder bCryptPasswordEncoder
   ) {
     return bCryptPasswordEncoder.matches(password, this.password);
+  }
+
+  public User toEntity() {
+    return User.builder().email(email).name(name).password(password).build();
+  }
+
+  public static User toEntity(
+    String email,
+    String name,
+    String password,
+    @Nullable UserRole role
+  ) {
+    return User
+      .builder()
+      .email(email)
+      .name(name)
+      .password(password)
+      .role(role)
+      .build();
   }
 }

@@ -26,7 +26,9 @@ public class ChangeUserServiceImpl implements ChangeUserService {
 
   @Override
   public User createUser(CreateUserRequest dto) {
-    final User user = dto.toEntity().encodePassword(bCryptPasswordEncoder);
+    final User user = User
+      .toEntity(dto.getEmail(), dto.getName(), dto.getPassword(), null)
+      .encodePassword(bCryptPasswordEncoder);
     return userRepository.save(user);
   }
 

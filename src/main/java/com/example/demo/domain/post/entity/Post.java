@@ -56,4 +56,19 @@ public class Post extends BaseChangerEntity {
     this.content = dto.getContent();
     return this;
   }
+
+  public static Post toEntity(
+    String title,
+    String subTitle,
+    String content,
+    User user
+  ) {
+    return Post
+      .builder()
+      .title(title)
+      .subTitle(subTitle)
+      .content(content)
+      .user(user)
+      .build();
+  }
 }

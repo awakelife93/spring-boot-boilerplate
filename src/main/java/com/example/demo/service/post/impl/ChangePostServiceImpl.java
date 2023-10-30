@@ -26,9 +26,13 @@ public class ChangePostServiceImpl implements ChangePostService {
   @Override
   public CreatePostResponse createPost(CreatePostRequest dto, Long userId) {
     final User user = userService.validateReturnUser(userId);
-    final Post post = postRepository.save(dto.toEntity(user));
-
-    return CreatePostResponse.builder().post(post).build();
+    final Post post = Post.toEntity(
+      dto.getTitle(),
+      dto.getSubTitle(),
+      dto.getContent(),
+      user
+    );
+    return CreatePostResponse.builder().post(postRepository.save(post)).build();
   }
 
   @Override

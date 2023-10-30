@@ -1,6 +1,5 @@
 package com.example.demo.domain.user.dto.serve;
 
-import com.example.demo.domain.user.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -28,8 +27,4 @@ public class CreateUserRequest {
     message = "field password is min size 8 and max size 20"
   )
   private String password;
-
-  public User toEntity() {
-    return User.builder().email(email).name(name).password(password).build();
-  }
 }

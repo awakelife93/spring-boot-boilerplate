@@ -1,7 +1,5 @@
 package com.example.demo.domain.post.dto.serve;
 
-import com.example.demo.domain.post.entity.Post;
-import com.example.demo.domain.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -25,14 +23,4 @@ public class CreatePostRequest {
   @NotBlank(message = "field content is blank")
   @Size(max = 500, message = "field content is max size 500")
   private String content;
-
-  public Post toEntity(User user) {
-    return Post
-      .builder()
-      .title(title)
-      .subTitle(subTitle)
-      .content(content)
-      .user(user)
-      .build();
-  }
 }
