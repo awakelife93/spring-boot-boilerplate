@@ -1,4 +1,4 @@
-package com.example.demo.common.service.impl;
+package com.example.demo.security.service.impl;
 
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.UserAdapter;
