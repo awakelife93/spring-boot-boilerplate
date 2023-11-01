@@ -7,7 +7,6 @@ import com.example.demo.security.exception.TokenNotFoundException;
 import com.example.demo.util.RedisUtil;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,9 +15,6 @@ public class TokenService {
 
   private final JWTProvider jwtProvider;
   private final RedisUtil redisUtil;
-
-  @Value("${jwt.refresh-expire}")
-  private long refreshExpireTime;
 
   public String getRefreshToken(Long userId) {
     String redisKey = redisUtil.generateSessionKey(userId);
