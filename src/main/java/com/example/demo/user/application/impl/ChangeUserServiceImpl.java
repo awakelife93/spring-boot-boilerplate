@@ -8,7 +8,7 @@ import com.example.demo.user.dto.serve.UpdateMeResponse;
 import com.example.demo.user.dto.serve.UpdateUserRequest;
 import com.example.demo.user.dto.serve.UpdateUserResponse;
 import com.example.demo.user.entity.User;
-import com.example.demo.user.repository.user.UserRepository;
+import com.example.demo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

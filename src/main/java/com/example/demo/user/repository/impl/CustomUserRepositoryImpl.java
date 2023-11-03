@@ -1,6 +1,6 @@
-package com.example.demo.user.repository.user.impl;
+package com.example.demo.user.repository.impl;
 
-import com.example.demo.user.repository.user.CustomUserRepository;
+import com.example.demo.user.repository.CustomUserRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
