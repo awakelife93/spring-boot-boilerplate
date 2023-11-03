@@ -1,9 +1,9 @@
 package com.example.demo.security.service;
 
-import com.example.demo.domain.user.entity.User;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.component.JWTProvider;
 import com.example.demo.security.exception.TokenNotFoundException;
+import com.example.demo.user.entity.User;
 import com.example.demo.util.RedisUtil;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;

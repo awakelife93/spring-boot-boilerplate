@@ -1,4 +1,4 @@
-package com.example.demo.security;
+package com.example.demo.user.dto.serve;
 
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.user.entity.User;
@@ -6,10 +6,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 @Getter
+@Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SecurityUserItem {
+public class UpdateMeResponse {
 
   private Long userId;
 
@@ -19,15 +21,22 @@ public class SecurityUserItem {
 
   private String email;
 
+  private String accessToken;
+
   @Builder
-  public SecurityUserItem(User user) {
+  public UpdateMeResponse(User user, String accessToken) {
     this.userId = user.getId();
     this.role = user.getRole();
     this.name = user.getName();
     this.email = user.getEmail();
+    this.accessToken = accessToken;
   }
 
-  public static SecurityUserItem of(User user) {
-    return SecurityUserItem.builder().user(user).build();
+  public static UpdateMeResponse of(User user, String accessToken) {
+    return UpdateMeResponse
+      .builder()
+      .user(user)
+      .accessToken(accessToken)
+      .build();
   }
 }

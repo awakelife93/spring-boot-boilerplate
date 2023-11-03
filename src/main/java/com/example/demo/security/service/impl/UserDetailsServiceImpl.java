@@ -1,9 +1,9 @@
 package com.example.demo.security.service.impl;
 
-import com.example.demo.domain.user.entity.User;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.UserAdapter;
-import com.example.demo.service.user.UserService;
+import com.example.demo.user.application.UserService;
+import com.example.demo.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
