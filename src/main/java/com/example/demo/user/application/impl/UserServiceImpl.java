@@ -1,6 +1,6 @@
 package com.example.demo.user.application.impl;
 
-import com.example.demo.auth.dto.serve.SignInRequest;
+import com.example.demo.auth.dto.serve.request.SignInRequest;
 import com.example.demo.user.application.UserService;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.exception.UserNotFoundException;

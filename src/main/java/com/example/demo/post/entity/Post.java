@@ -1,7 +1,7 @@
 package com.example.demo.post.entity;
 
 import com.example.demo.common.entity.BaseChangerEntity;
-import com.example.demo.post.dto.serve.UpdatePostRequest;
+import com.example.demo.post.dto.serve.request.UpdatePostRequest;
 import com.example.demo.user.entity.User;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;

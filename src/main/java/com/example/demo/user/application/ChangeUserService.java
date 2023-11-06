@@ -1,9 +1,9 @@
 package com.example.demo.user.application;
 
-import com.example.demo.user.dto.serve.CreateUserRequest;
-import com.example.demo.user.dto.serve.UpdateMeResponse;
-import com.example.demo.user.dto.serve.UpdateUserRequest;
-import com.example.demo.user.dto.serve.UpdateUserResponse;
+import com.example.demo.user.dto.serve.request.CreateUserRequest;
+import com.example.demo.user.dto.serve.request.UpdateUserRequest;
+import com.example.demo.user.dto.serve.response.UpdateMeResponse;
+import com.example.demo.user.dto.serve.response.UpdateUserResponse;
 import com.example.demo.user.entity.User;
 
 public interface ChangeUserService {

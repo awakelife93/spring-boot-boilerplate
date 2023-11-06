@@ -1,12 +1,12 @@
 package com.example.demo.auth.api;
 
 import com.example.demo.auth.application.AuthService;
-import com.example.demo.auth.dto.serve.SignInRequest;
-import com.example.demo.auth.dto.serve.SignInResponse;
+import com.example.demo.auth.dto.serve.request.SignInRequest;
+import com.example.demo.auth.dto.serve.response.SignInResponse;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.annotation.CurrentUser;
-import com.example.demo.user.dto.serve.CreateUserRequest;
-import com.example.demo.user.dto.serve.CreateUserResponse;
+import com.example.demo.user.dto.serve.request.CreateUserRequest;
+import com.example.demo.user.dto.serve.response.CreateUserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.example.demo.user.application;
 
-import com.example.demo.user.dto.serve.GetUserResponse;
+import com.example.demo.user.dto.serve.response.GetUserResponse;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 

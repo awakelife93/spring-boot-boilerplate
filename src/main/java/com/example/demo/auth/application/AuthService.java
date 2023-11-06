@@ -1,16 +1,16 @@
 package com.example.demo.auth.application;
 
-import com.example.demo.auth.dto.serve.SignInRequest;
-import com.example.demo.auth.dto.serve.SignInResponse;
+import com.example.demo.auth.dto.serve.request.SignInRequest;
+import com.example.demo.auth.dto.serve.response.SignInResponse;
 import com.example.demo.auth.exception.AlreadyUserExistException;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.service.TokenService;
 import com.example.demo.user.application.ChangeUserService;
 import com.example.demo.user.application.GetUserService;
 import com.example.demo.user.application.UserService;
-import com.example.demo.user.dto.serve.CreateUserRequest;
-import com.example.demo.user.dto.serve.CreateUserResponse;
-import com.example.demo.user.dto.serve.GetUserResponse;
+import com.example.demo.user.dto.serve.request.CreateUserRequest;
+import com.example.demo.user.dto.serve.response.CreateUserResponse;
+import com.example.demo.user.dto.serve.response.GetUserResponse;
 import com.example.demo.user.entity.User;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;

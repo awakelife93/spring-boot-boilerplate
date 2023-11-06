@@ -1,4 +1,4 @@
-package com.example.demo.auth.dto.serve;
+package com.example.demo.user.dto.serve.response;
 
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.user.entity.User;
@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignInResponse {
+public class GetUserResponse {
 
   private Long userId;
 
@@ -21,18 +21,15 @@ public class SignInResponse {
 
   private String email;
 
-  private String accessToken;
-
   @Builder
-  public SignInResponse(User user, String accessToken) {
+  public GetUserResponse(User user) {
     this.userId = user.getId();
     this.role = user.getRole();
     this.name = user.getName();
     this.email = user.getEmail();
-    this.accessToken = accessToken;
   }
 
-  public static SignInResponse of(User user, String accessToken) {
-    return SignInResponse.builder().user(user).accessToken(accessToken).build();
+  public static GetUserResponse of(User user) {
+    return GetUserResponse.builder().user(user).build();
   }
 }

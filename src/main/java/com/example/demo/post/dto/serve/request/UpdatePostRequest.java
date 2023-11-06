@@ -1,4 +1,4 @@
-package com.example.demo.post.dto.serve;
+package com.example.demo.post.dto.serve.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;

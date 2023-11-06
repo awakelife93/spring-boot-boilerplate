@@ -1,4 +1,4 @@
-package com.example.demo.auth.dto.serve;
+package com.example.demo.user.dto.serve.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,10 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignInRequest {
+public class CreateUserRequest {
+
+  @NotBlank(message = "field name is blank")
+  private String name;
 
   @NotBlank(message = "field email is blank")
   @Email(message = "field email is not email format")

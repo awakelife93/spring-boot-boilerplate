@@ -2,10 +2,10 @@ package com.example.demo.post.application.impl;
 
 import com.example.demo.post.application.ChangePostService;
 import com.example.demo.post.application.PostService;
-import com.example.demo.post.dto.serve.CreatePostRequest;
-import com.example.demo.post.dto.serve.CreatePostResponse;
-import com.example.demo.post.dto.serve.UpdatePostRequest;
-import com.example.demo.post.dto.serve.UpdatePostResponse;
+import com.example.demo.post.dto.serve.request.CreatePostRequest;
+import com.example.demo.post.dto.serve.request.UpdatePostRequest;
+import com.example.demo.post.dto.serve.response.CreatePostResponse;
+import com.example.demo.post.dto.serve.response.UpdatePostResponse;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
 import com.example.demo.user.application.UserService;

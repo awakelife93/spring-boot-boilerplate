@@ -3,7 +3,7 @@ package com.example.demo.user.entity;
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.common.entity.BaseEntity;
 import com.example.demo.post.entity.Post;
-import com.example.demo.user.dto.serve.UpdateUserRequest;
+import com.example.demo.user.dto.serve.request.UpdateUserRequest;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

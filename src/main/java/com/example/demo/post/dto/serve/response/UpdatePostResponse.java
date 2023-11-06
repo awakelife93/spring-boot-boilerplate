@@ -1,4 +1,4 @@
-package com.example.demo.post.dto.serve;
+package com.example.demo.post.dto.serve.response;
 
 import com.example.demo.post.dto.Writer;
 import com.example.demo.post.entity.Post;
@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CreatePostResponse {
+public class UpdatePostResponse {
 
   private Long postId;
 
@@ -24,7 +24,7 @@ public class CreatePostResponse {
   private Writer writer;
 
   @Builder
-  public CreatePostResponse(Post post) {
+  public UpdatePostResponse(Post post) {
     this.postId = post.getId();
     this.title = post.getTitle();
     this.subTitle = post.getSubTitle();
@@ -37,7 +37,7 @@ public class CreatePostResponse {
       );
   }
 
-  public static CreatePostResponse of(Post post) {
-    return builder().post(post).build();
+  public static UpdatePostResponse of(Post post) {
+    return UpdatePostResponse.builder().post(post).build();
   }
 }

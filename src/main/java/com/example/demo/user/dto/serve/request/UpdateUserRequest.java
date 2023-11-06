@@ -1,4 +1,4 @@
-package com.example.demo.user.dto.serve;
+package com.example.demo.user.dto.serve.request;
 
 import com.example.demo.common.annotaction.ValidEnum;
 import com.example.demo.common.constant.UserRole;

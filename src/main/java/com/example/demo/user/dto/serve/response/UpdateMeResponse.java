@@ -1,4 +1,4 @@
-package com.example.demo.user.dto.serve;
+package com.example.demo.user.dto.serve.response;
 
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.user.entity.User;

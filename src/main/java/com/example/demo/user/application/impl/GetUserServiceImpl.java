@@ -1,7 +1,7 @@
 package com.example.demo.user.application.impl;
 
 import com.example.demo.user.application.GetUserService;
-import com.example.demo.user.dto.serve.GetUserResponse;
+import com.example.demo.user.dto.serve.response.GetUserResponse;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.repository.UserRepository;
 import java.util.List;

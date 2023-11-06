@@ -1,8 +1,8 @@
 package com.example.demo.post.application.impl;
 
 import com.example.demo.post.application.GetPostService;
-import com.example.demo.post.dto.serve.GetExcludeUsersPostsRequest;
-import com.example.demo.post.dto.serve.GetPostResponse;
+import com.example.demo.post.dto.serve.request.GetExcludeUsersPostsRequest;
+import com.example.demo.post.dto.serve.response.GetPostResponse;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
 import java.util.List;

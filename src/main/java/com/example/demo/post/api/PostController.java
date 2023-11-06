@@ -2,12 +2,12 @@ package com.example.demo.post.api;
 
 import com.example.demo.post.application.ChangePostService;
 import com.example.demo.post.application.GetPostService;
-import com.example.demo.post.dto.serve.CreatePostRequest;
-import com.example.demo.post.dto.serve.CreatePostResponse;
-import com.example.demo.post.dto.serve.GetExcludeUsersPostsRequest;
-import com.example.demo.post.dto.serve.GetPostResponse;
-import com.example.demo.post.dto.serve.UpdatePostRequest;
-import com.example.demo.post.dto.serve.UpdatePostResponse;
+import com.example.demo.post.dto.serve.request.CreatePostRequest;
+import com.example.demo.post.dto.serve.request.GetExcludeUsersPostsRequest;
+import com.example.demo.post.dto.serve.request.UpdatePostRequest;
+import com.example.demo.post.dto.serve.response.CreatePostResponse;
+import com.example.demo.post.dto.serve.response.GetPostResponse;
+import com.example.demo.post.dto.serve.response.UpdatePostResponse;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.annotation.CurrentUser;
 import jakarta.validation.Valid;
