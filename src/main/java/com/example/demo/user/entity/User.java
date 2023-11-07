@@ -1,7 +1,7 @@
 package com.example.demo.user.entity;
 
 import com.example.demo.common.constant.UserRole;
-import com.example.demo.common.entity.BaseEntity;
+import com.example.demo.common.entity.BaseSoftDeleteEntity;
 import com.example.demo.post.entity.Post;
 import com.example.demo.user.dto.serve.request.UpdateUserRequest;
 import jakarta.persistence.AttributeOverride;
@@ -19,6 +19,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -27,7 +29,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Table(name = "\"user\"")
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseEntity {
+@SQLDelete(sql = "UPDATE \"user\" SET is_deleted = true WHERE user_id = ?")
+@Where(clause = "is_deleted = false")
+public class User extends BaseSoftDeleteEntity {
 
   @Column(nullable = false)
   private String name;
