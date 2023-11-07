@@ -4,6 +4,7 @@ import com.example.demo.common.exception.AlreadyExistException;
 import com.example.demo.common.exception.NotFoundException;
 import com.example.demo.common.exception.UnAuthorizedException;
 import com.example.demo.common.response.ErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,14 +83,20 @@ public class ErrorHandler {
 
   @ExceptionHandler(AuthenticationException.class)
   protected ResponseEntity<ErrorResponse> handleAuthenticationException(
-    AuthenticationException exception
+    AuthenticationException exception,
+    HttpServletRequest httpServletRequest
   ) {
     ErrorResponse response = ErrorResponse.of(
       HttpStatus.UNAUTHORIZED.value(),
       exception.getMessage()
     );
 
-    log.error("handleAuthenticationException Error", exception);
+    log.error(
+      "handleAuthenticationException Error - {} {} {}",
+      httpServletRequest.getRequestURI(),
+      httpServletRequest.getServletPath(),
+      exception
+    );
     return new ResponseEntity<ErrorResponse>(response, HttpStatus.UNAUTHORIZED);
   }
 
