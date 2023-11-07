@@ -93,9 +93,9 @@ public class ErrorHandler {
 
     log.error(
       "handleAuthenticationException Error - {} {} {}",
+      httpServletRequest.getMethod(),
       httpServletRequest.getRequestURI(),
-      httpServletRequest.getServletPath(),
-      exception
+      exception.getMessage()
     );
     return new ResponseEntity<ErrorResponse>(response, HttpStatus.UNAUTHORIZED);
   }
