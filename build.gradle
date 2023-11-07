@@ -31,6 +31,9 @@ dependencies {
 	// security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+  // batch
+  implementation 'org.springframework.boot:spring-boot-starter-batch'
+
 	// devtools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
