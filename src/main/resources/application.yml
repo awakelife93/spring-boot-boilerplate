@@ -2,6 +2,6 @@ spring:
   profiles:
     active: local
     group:
-      "local": "local, common, secret"
+      "local": "local, common, secret, batch"
       "dev": "dev, common, secret"
-      "prod": "prod, common, secret"
+      "prod": "prod, common, secret, batch"

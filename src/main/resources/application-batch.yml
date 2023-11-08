@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: batch
+  batch:
+    job.names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: never

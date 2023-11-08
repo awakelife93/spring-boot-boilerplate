@@ -29,8 +29,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Table(name = "\"user\"")
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE \"user\" SET is_deleted = true WHERE user_id = ?")
-@Where(clause = "is_deleted = false")
+@SQLDelete(
+  sql = "UPDATE \"user\" SET deleted_dt = CURRENT_TIMESTAMP WHERE user_id = ?"
+)
+@Where(clause = "deleted_dt IS NULL")
 public class User extends BaseSoftDeleteEntity {
 
   @Column(nullable = false)

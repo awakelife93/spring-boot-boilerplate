@@ -1,0 +1,58 @@
+package com.example.demo.user.batch.scheduler;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import lombok.RequiredArgsConstructor;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.configuration.JobRegistry;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.NoSuchJobException;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@RequiredArgsConstructor
+@Component
+public class DeleteUserScheduler {
+
+  private final JobLauncher jobLauncher;
+  private final JobRegistry jobRegistry;
+
+  // 1 am
+  @Scheduled(cron = "0 0 01 * * ?")
+  public void run() {
+    try {
+      String now = LocalDateTime
+        .now()
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+      // ignore @NonNull
+      if (!Objects.isNull(now)) {
+        Job job = jobRegistry.getJob("deleteUserJob");
+        JobParameters jobParameters = new JobParametersBuilder()
+          .addString("now", now)
+          .toJobParameters();
+
+        jobLauncher.run(job, jobParameters);
+      } else {
+        throw new JobParametersInvalidException(
+          "LocalDateTime.now().toString() is Null"
+        );
+      }
+    } catch (
+      NoSuchJobException
+      | JobInstanceAlreadyCompleteException
+      | JobExecutionAlreadyRunningException
+      | JobParametersInvalidException
+      | JobRestartException exception
+    ) {
+      throw new RuntimeException(exception);
+    }
+  }
+}
