@@ -2,8 +2,8 @@ package com.example.demo.post.application.impl;
 
 import com.example.demo.post.application.PostService;
 import com.example.demo.post.entity.Post;
+import com.example.demo.post.exception.PostNotFoundException;
 import com.example.demo.post.repository.PostRepository;
-import com.example.demo.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class PostServiceImpl implements PostService {
   public Post validateReturnPost(Long postId) {
     final Post post = postRepository
       .findOneById(postId)
-      .orElseThrow(() -> new UserNotFoundException());
+      .orElseThrow(() -> new PostNotFoundException());
 
     return post;
   }
