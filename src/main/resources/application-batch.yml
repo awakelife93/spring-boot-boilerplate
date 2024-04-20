@@ -3,7 +3,8 @@ spring:
     activate:
       on-profile: batch
   batch:
-    job.enabled: false
-    job.names: ${job.name:NONE}
+    job:
+      enabled: false
+      name: ${job.name:NONE}
     jdbc:
       initialize-schema: never

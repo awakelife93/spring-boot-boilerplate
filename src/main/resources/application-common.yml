@@ -6,12 +6,8 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
     open-in-view: false
-    hibernate.jdbc.time_zone: UTC
-  error:
-    include-exception: false
-    include-message: always
-    inclue-stacktrace: on_param
-    whitelabel.enabled: false
+    properties:
+      "[hibernate.jdbc.time_zone]": UTC
   mvc:
     throw-exception-if-no-handler-found: true
   web:
@@ -20,3 +16,8 @@ server:
   servlet:
     encoding:
       force-response: true
+  error:
+    include-exception: false
+    include-message: always
+    include-stacktrace: ON_PARAM
+    whitelabel.enabled: false
