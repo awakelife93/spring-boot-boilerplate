@@ -36,6 +36,6 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
       return body;
     }
 
-    return OkResponse.of(HttpStatus.OK.value(), "success", body);
+    return OkResponse.of(HttpStatus.OK.value(), HttpStatus.OK.name(), body);
   }
 }
