@@ -41,7 +41,7 @@ public class User extends BaseSoftDeleteEntity {
   @Column(unique = true, nullable = false, updatable = false)
   private String email;
 
-  @Column(unique = true)
+  @Column(nullable = false)
   private String password;
 
   @Enumerated(EnumType.STRING)
