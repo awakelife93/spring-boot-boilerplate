@@ -2,6 +2,7 @@ package com.example.demo.auth.api;
 
 import com.example.demo.auth.application.AuthService;
 import com.example.demo.auth.dto.serve.request.SignInRequest;
+import com.example.demo.auth.dto.serve.response.RefreshAccessTokenResponse;
 import com.example.demo.auth.dto.serve.response.SignInResponse;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.annotation.CurrentUser;
@@ -10,6 +11,7 @@ import com.example.demo.user.dto.serve.response.CreateUserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,14 +27,20 @@ public class AuthController {
 
   @PostMapping("/signUp")
   @ResponseStatus(HttpStatus.CREATED)
-  public CreateUserResponse signUp(@RequestBody @Valid CreateUserRequest dto) {
-    return authService.signUp(dto);
+  public ResponseEntity<CreateUserResponse> signUp(
+    @RequestBody @Valid CreateUserRequest dto
+  ) {
+    final CreateUserResponse createUserResponse = authService.signUp(dto);
+    return ResponseEntity.ok(createUserResponse);
   }
 
   @PostMapping("/signIn")
   @ResponseStatus(HttpStatus.OK)
-  public SignInResponse signIn(@RequestBody @Valid SignInRequest dto) {
-    return authService.signIn(dto);
+  public ResponseEntity<SignInResponse> signIn(
+    @RequestBody @Valid SignInRequest dto
+  ) {
+    final SignInResponse signInResponse = authService.signIn(dto);
+    return ResponseEntity.ok(signInResponse);
   }
 
   @PostMapping("/signOut")
@@ -41,11 +49,14 @@ public class AuthController {
     authService.signOut(securityUserItem.getUserId());
   }
 
-  @PostMapping
+  @PostMapping("/refresh")
   @ResponseStatus(HttpStatus.CREATED)
-  public String refreshAccessToken(
+  public ResponseEntity<RefreshAccessTokenResponse> refreshAccessToken(
     @CurrentUser SecurityUserItem securityUserItem
   ) {
-    return authService.refreshAccessToken(securityUserItem);
+    final RefreshAccessTokenResponse refreshAccessToken = authService.refreshAccessToken(
+      securityUserItem
+    );
+    return ResponseEntity.ok(refreshAccessToken);
   }
 }

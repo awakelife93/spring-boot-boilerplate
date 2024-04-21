@@ -1,6 +1,7 @@
 package com.example.demo.auth.application;
 
 import com.example.demo.auth.dto.serve.request.SignInRequest;
+import com.example.demo.auth.dto.serve.response.RefreshAccessTokenResponse;
 import com.example.demo.auth.dto.serve.response.SignInResponse;
 import com.example.demo.auth.exception.AlreadyUserExistException;
 import com.example.demo.security.SecurityUserItem;
@@ -51,7 +52,11 @@ public class AuthService {
     SecurityContextHolder.clearContext();
   }
 
-  public String refreshAccessToken(SecurityUserItem securityUserItem) {
-    return tokenService.refreshAccessToken(securityUserItem);
+  public RefreshAccessTokenResponse refreshAccessToken(
+    SecurityUserItem securityUserItem
+  ) {
+    return RefreshAccessTokenResponse.of(
+      tokenService.refreshAccessToken(securityUserItem)
+    );
   }
 }
