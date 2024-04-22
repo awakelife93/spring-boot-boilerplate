@@ -24,7 +24,7 @@ public class AuthService {
 
   private final UserService userService;
   private final GetUserService getUserService;
-  private final ChangeUserService ChangeUserService;
+  private final ChangeUserService changeUserService;
   private final TokenService tokenService;
 
   public CreateUserResponse signUp(CreateUserRequest dto) {
@@ -36,7 +36,7 @@ public class AuthService {
       throw new AlreadyUserExistException();
     }
 
-    final User user = ChangeUserService.createUser(dto);
+    final User user = changeUserService.createUser(dto);
 
     return CreateUserResponse.of(user, tokenService.createFullTokens(user));
   }
