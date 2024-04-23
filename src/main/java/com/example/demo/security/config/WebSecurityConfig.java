@@ -26,6 +26,20 @@ public class WebSecurityConfig {
   private final JWTAuthFilter jwtAuthFilter;
   private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
+  private String[] whiteListAuthEndpoints() {
+    String[] endPoints = new String[] { "/auth/signIn", "/auth/signUp" };
+    return endPoints;
+  }
+
+  private String[] whiteListGetEndpoints() {
+    String[] endPoints = new String[] {
+      "/users",
+      "/posts",
+      "/posts/exclude-users",
+    };
+    return endPoints;
+  }
+
   @Bean
   public AuthenticationManager authenticationManager(
     AuthenticationConfiguration authenticationConfiguration
@@ -44,11 +58,9 @@ public class WebSecurityConfig {
       )
       .authorizeHttpRequests(request ->
         request
-          .requestMatchers("/auth/signIn", "/auth/signUp")
+          .requestMatchers(whiteListAuthEndpoints())
           .permitAll()
-          .requestMatchers(HttpMethod.GET, "/users")
-          .permitAll()
-          .requestMatchers(HttpMethod.GET, "/posts", "/posts/exclude-users")
+          .requestMatchers(HttpMethod.GET, whiteListGetEndpoints())
           .permitAll()
           .anyRequest()
           .authenticated()
