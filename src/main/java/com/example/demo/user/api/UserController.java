@@ -4,7 +4,9 @@ import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.annotation.CurrentUser;
 import com.example.demo.user.application.ChangeUserService;
 import com.example.demo.user.application.GetUserService;
+import com.example.demo.user.dto.serve.request.CreateUserRequest;
 import com.example.demo.user.dto.serve.request.UpdateUserRequest;
+import com.example.demo.user.dto.serve.response.CreateUserResponse;
 import com.example.demo.user.dto.serve.response.GetUserResponse;
 import com.example.demo.user.dto.serve.response.UpdateMeResponse;
 import com.example.demo.user.dto.serve.response.UpdateUserResponse;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -47,6 +50,17 @@ public class UserController {
       pageable
     );
     return ResponseEntity.ok(usersResponse);
+  }
+
+  @PostMapping("/register")
+  @ResponseStatus(HttpStatus.CREATED)
+  public ResponseEntity<CreateUserResponse> createUser(
+    @RequestBody @Valid CreateUserRequest dto
+  ) {
+    final CreateUserResponse createUserResponse = changeUserService.createUser(
+      dto
+    );
+    return ResponseEntity.ok(createUserResponse);
   }
 
   @PatchMapping("/{userId}")

@@ -6,8 +6,6 @@ import com.example.demo.auth.dto.serve.response.RefreshAccessTokenResponse;
 import com.example.demo.auth.dto.serve.response.SignInResponse;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.annotation.CurrentUser;
-import com.example.demo.user.dto.serve.request.CreateUserRequest;
-import com.example.demo.user.dto.serve.response.CreateUserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,15 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
   private final AuthService authService;
-
-  @PostMapping("/signUp")
-  @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<CreateUserResponse> signUp(
-    @RequestBody @Valid CreateUserRequest dto
-  ) {
-    final CreateUserResponse createUserResponse = authService.signUp(dto);
-    return ResponseEntity.ok(createUserResponse);
-  }
 
   @PostMapping("/signIn")
   @ResponseStatus(HttpStatus.OK)
