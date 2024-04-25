@@ -64,8 +64,10 @@ dependencies {
 	// for apple chip
 	implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 
+  // test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+  testImplementation 'org.instancio:instancio-junit:4.5.1'
 }
 
 tasks.named('test') {
