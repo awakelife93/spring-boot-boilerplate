@@ -45,8 +45,8 @@ public class UserController {
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<GetUserResponse>> getUsers(Pageable pageable) {
-    final List<GetUserResponse> usersResponse = getUserService.getUsers(
+  public ResponseEntity<List<GetUserResponse>> getUserList(Pageable pageable) {
+    final List<GetUserResponse> usersResponse = getUserService.getUserList(
       pageable
     );
     return ResponseEntity.ok(usersResponse);

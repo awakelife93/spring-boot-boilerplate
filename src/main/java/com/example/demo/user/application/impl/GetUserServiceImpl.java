@@ -42,7 +42,7 @@ public class GetUserServiceImpl implements GetUserService {
   }
 
   @Override
-  public List<GetUserResponse> getUsers(Pageable pageable) {
+  public List<GetUserResponse> getUserList(Pageable pageable) {
     return userRepository
       .findAll(pageable)
       .getContent()

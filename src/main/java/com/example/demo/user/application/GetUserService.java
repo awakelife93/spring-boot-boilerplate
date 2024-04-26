@@ -9,5 +9,5 @@ public interface GetUserService {
 
   public GetUserResponse getUserByEmail(String email);
 
-  public List<GetUserResponse> getUsers(Pageable pageable);
+  public List<GetUserResponse> getUserList(Pageable pageable);
 }
