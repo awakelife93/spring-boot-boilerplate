@@ -3,7 +3,6 @@ package com.example.demo.user.batch.config;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.repository.UserRepository;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,16 +68,11 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
   @Bean
   @StepScope
   public Tasklet findDeletedUsersYearAgoTasklet(
-    @Value("#{jobParameters[now]}") String now
+    @Value("#{jobParameters[now]}") LocalDateTime now
   ) {
     return (
       (contribution, chunkContext) -> {
-        LocalDateTime localDateTime = LocalDateTime.parse(
-          now,
-          DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        );
-
-        this.users = userRepository.findDeletedUsersYearAgo(localDateTime);
+        this.users = userRepository.findDeletedUsersYearAgo(now);
 
         return RepeatStatus.FINISHED;
       }

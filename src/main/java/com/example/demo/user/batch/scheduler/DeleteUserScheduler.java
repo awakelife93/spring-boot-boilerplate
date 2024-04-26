@@ -1,8 +1,6 @@
 package com.example.demo.user.batch.scheduler;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -28,23 +26,12 @@ public class DeleteUserScheduler {
   @Scheduled(cron = "0 0 01 * * ?")
   public void run() {
     try {
-      String now = LocalDateTime
-        .now()
-        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+      Job job = jobRegistry.getJob("deleteUserJob");
+      JobParameters jobParameters = new JobParametersBuilder()
+        .addLocalDateTime("now", LocalDateTime.now())
+        .toJobParameters();
 
-      // ignore @NonNull
-      if (!Objects.isNull(now)) {
-        Job job = jobRegistry.getJob("deleteUserJob");
-        JobParameters jobParameters = new JobParametersBuilder()
-          .addString("now", now)
-          .toJobParameters();
-
-        jobLauncher.run(job, jobParameters);
-      } else {
-        throw new JobParametersInvalidException(
-          "LocalDateTime.now().toString() is Null"
-        );
-      }
+      jobLauncher.run(job, jobParameters);
     } catch (
       NoSuchJobException
       | JobInstanceAlreadyCompleteException
