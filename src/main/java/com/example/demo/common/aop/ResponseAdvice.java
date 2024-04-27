@@ -6,6 +6,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.Nullable;
@@ -20,7 +21,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     MethodParameter returnType,
     Class<? extends HttpMessageConverter<?>> converterType
   ) {
-    return true;
+    return MappingJackson2HttpMessageConverter.class.isAssignableFrom(
+        converterType
+      );
   }
 
   @Override
