@@ -4,6 +4,5 @@ spring:
       on-profile: prod
   jpa:
     generate-ddl: false
-    show-sql: false
     properties:
       "[hibernate.hbm2ddl.auto]": none

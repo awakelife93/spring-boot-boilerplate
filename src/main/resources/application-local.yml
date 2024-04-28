@@ -3,12 +3,14 @@ spring:
     activate:
       on-profile: local
   jpa:
-    show-sql: true
     generate-ddl: true
     properties:
       "[hibernate.hbm2ddl.auto]": update
       "[hibernate.format_sql]": true
 logging:
   level:
-    "[org.hibernate]": debug
-
+    "[org.hibernate.SQL]": debug
+    "[org.hibernate.type.descriptor.sql]": trace
+    "[org.hibernate.transaction.JDBCTransaction]": debug
+    "[org.hibernate.jdbc.ConnectionManager]": debug
+    "[org.springframework.orm.JpaTransactionManager]": debug
