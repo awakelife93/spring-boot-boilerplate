@@ -2,6 +2,7 @@ package com.example.demo.common.aop;
 
 import com.example.demo.common.response.ErrorResponse;
 import com.example.demo.common.response.OkResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
+
+  @Value("${springdoc.api-docs.path}")
+  private String apiDocsPath;
 
   @Override
   public boolean supports(
@@ -36,6 +40,11 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     ServerHttpResponse response
   ) {
     if (body instanceof ErrorResponse) {
+      return body;
+    }
+
+    final String swaggerConfigUrl = apiDocsPath + "/swagger-config";
+    if (request.getURI().getPath().equals(swaggerConfigUrl)) {
       return body;
     }
 
