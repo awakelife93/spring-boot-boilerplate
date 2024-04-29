@@ -14,7 +14,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +21,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -57,12 +55,12 @@ public class User extends BaseSoftDeleteEntity {
     @NonNull String name,
     @NonNull String email,
     @NonNull String password,
-    UserRole role
+    @NonNull UserRole role
   ) {
     this.name = name;
     this.email = email;
     this.password = password;
-    this.role = Objects.isNull(role) ? UserRole.USER : role;
+    this.role = role;
   }
 
   public User update(UpdateUserRequest updateUserRequest) {
@@ -92,7 +90,7 @@ public class User extends BaseSoftDeleteEntity {
     String email,
     String name,
     String password,
-    @Nullable UserRole role
+    UserRole role
   ) {
     return User
       .builder()

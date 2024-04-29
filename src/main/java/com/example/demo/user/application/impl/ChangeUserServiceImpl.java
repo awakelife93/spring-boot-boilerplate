@@ -1,5 +1,6 @@
 package com.example.demo.user.application.impl;
 
+import com.example.demo.common.constant.UserRole;
 import com.example.demo.security.service.TokenService;
 import com.example.demo.user.application.ChangeUserService;
 import com.example.demo.user.application.GetUserService;
@@ -45,7 +46,7 @@ public class ChangeUserServiceImpl implements ChangeUserService {
         createUserRequest.getEmail(),
         createUserRequest.getName(),
         createUserRequest.getPassword(),
-        null
+        UserRole.USER
       )
       .encodePassword(bCryptPasswordEncoder);
 
