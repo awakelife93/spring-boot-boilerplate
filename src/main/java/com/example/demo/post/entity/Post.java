@@ -50,10 +50,10 @@ public class Post extends BaseChangerEntity {
     this.user = user;
   }
 
-  public Post update(UpdatePostRequest dto) {
-    this.title = dto.getTitle();
-    this.subTitle = dto.getSubTitle();
-    this.content = dto.getContent();
+  public Post update(UpdatePostRequest updatePostRequest) {
+    this.title = updatePostRequest.getTitle();
+    this.subTitle = updatePostRequest.getSubTitle();
+    this.content = updatePostRequest.getContent();
     return this;
   }
 

@@ -18,8 +18,8 @@ public class AuthService {
   private final UserService userService;
   private final TokenService tokenService;
 
-  public SignInResponse signIn(SignInRequest dto) {
-    final User user = userService.validateAuthReturnUser(dto);
+  public SignInResponse signIn(SignInRequest signInRequest) {
+    final User user = userService.validateAuthReturnUser(signInRequest);
 
     return SignInResponse.of(user, tokenService.createFullTokens(user));
   }

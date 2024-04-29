@@ -7,11 +7,17 @@ import com.example.demo.user.dto.serve.response.UpdateMeResponse;
 import com.example.demo.user.dto.serve.response.UpdateUserResponse;
 
 public interface ChangeUserService {
-  public UpdateUserResponse updateUser(Long userId, UpdateUserRequest dto);
+  public UpdateUserResponse updateUser(
+    Long userId,
+    UpdateUserRequest updateUserRequest
+  );
 
-  public UpdateMeResponse updateMe(Long userId, UpdateUserRequest dto);
+  public UpdateMeResponse updateMe(
+    Long userId,
+    UpdateUserRequest updateUserRequest
+  );
 
-  public CreateUserResponse createUser(CreateUserRequest dto);
+  public CreateUserResponse createUser(CreateUserRequest createUserRequest);
 
   public void deleteUser(Long userId);
 }

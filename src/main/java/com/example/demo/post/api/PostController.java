@@ -67,11 +67,11 @@ public class PostController {
   )
   @PutMapping
   public ResponseEntity<CreatePostResponse> createPost(
-    @RequestBody @Valid CreatePostRequest dto,
+    @RequestBody @Valid CreatePostRequest createPostRequest,
     @CurrentUser SecurityUserItem securityUserItem
   ) {
     final CreatePostResponse createPostResponse = changePostService.createPost(
-      dto,
+      createPostRequest,
       securityUserItem.getUserId()
     );
     return ResponseEntity.status(HttpStatus.CREATED).body(createPostResponse);
@@ -130,11 +130,11 @@ public class PostController {
   )
   @GetMapping("/exclude-users")
   public ResponseEntity<List<GetPostResponse>> getExcludeUsersPosts(
-    @Valid GetExcludeUsersPostsRequest dto,
+    @Valid GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   ) {
     final List<GetPostResponse> postResponses = getPostService.getExcludeUsersPosts(
-      dto,
+      getExcludeUsersPostsRequest,
       pageable
     );
     return ResponseEntity.ok(postResponses);
@@ -205,12 +205,12 @@ public class PostController {
   )
   @PatchMapping("/{postId}")
   public ResponseEntity<UpdatePostResponse> updatePost(
-    @RequestBody @Valid UpdatePostRequest dto,
+    @RequestBody @Valid UpdatePostRequest updatePostRequest,
     @PathVariable("postId") Long postId
   ) {
     final UpdatePostResponse updatePostResponse = changePostService.updatePost(
       postId,
-      dto
+      updatePostRequest
     );
     return ResponseEntity.ok(updatePostResponse);
   }

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface CustomPostRepository {
   List<GetPostResponse> getExcludeUsersPosts(
-    GetExcludeUsersPostsRequest dto,
+    GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   );
 }

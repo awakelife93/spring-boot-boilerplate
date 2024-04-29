@@ -43,9 +43,12 @@ public class GetPostServiceImpl implements GetPostService {
 
   @Override
   public List<GetPostResponse> getExcludeUsersPosts(
-    GetExcludeUsersPostsRequest dto,
+    GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   ) {
-    return postRepository.getExcludeUsersPosts(dto, pageable);
+    return postRepository.getExcludeUsersPosts(
+      getExcludeUsersPostsRequest,
+      pageable
+    );
   }
 }

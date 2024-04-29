@@ -27,13 +27,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User validateAuthReturnUser(SignInRequest dto) {
+  public User validateAuthReturnUser(SignInRequest signInRequest) {
     final User user = userRepository
-      .findOneByEmail(dto.getEmail())
+      .findOneByEmail(signInRequest.getEmail())
       .orElseThrow(() -> new UserNotFoundException());
 
     boolean isValidate = user.validatePassword(
-      dto.getPassword(),
+      signInRequest.getPassword(),
       bCryptPasswordEncoder
     );
 

@@ -6,9 +6,15 @@ import com.example.demo.post.dto.serve.response.CreatePostResponse;
 import com.example.demo.post.dto.serve.response.UpdatePostResponse;
 
 public interface ChangePostService {
-  public UpdatePostResponse updatePost(Long postId, UpdatePostRequest dto);
+  public UpdatePostResponse updatePost(
+    Long postId,
+    UpdatePostRequest updatePostRequest
+  );
 
-  public CreatePostResponse createPost(CreatePostRequest dto, Long userId);
+  public CreatePostResponse createPost(
+    CreatePostRequest createPostRequest,
+    Long userId
+  );
 
   public void deletePost(Long postId);
 }

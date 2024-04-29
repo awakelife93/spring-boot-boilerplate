@@ -127,10 +127,10 @@ public class UserController {
   )
   @PostMapping("/register")
   public ResponseEntity<CreateUserResponse> createUser(
-    @RequestBody @Valid CreateUserRequest dto
+    @RequestBody @Valid CreateUserRequest createUserRequest
   ) {
     final CreateUserResponse createUserResponse = changeUserService.createUser(
-      dto
+      createUserRequest
     );
     return ResponseEntity.status(HttpStatus.CREATED).body(createUserResponse);
   }
@@ -167,12 +167,12 @@ public class UserController {
   )
   @PatchMapping("/{userId}")
   public ResponseEntity<UpdateUserResponse> updateUser(
-    @RequestBody @Valid UpdateUserRequest dto,
+    @RequestBody @Valid UpdateUserRequest updateUserRequest,
     @PathVariable("userId") Long userId
   ) {
     final UpdateUserResponse usersResponse = changeUserService.updateUser(
       userId,
-      dto
+      updateUserRequest
     );
     return ResponseEntity.ok(usersResponse);
   }
@@ -209,12 +209,12 @@ public class UserController {
   )
   @PatchMapping
   public ResponseEntity<UpdateMeResponse> updateMe(
-    @RequestBody @Valid UpdateUserRequest dto,
+    @RequestBody @Valid UpdateUserRequest updateUserRequest,
     @CurrentUser SecurityUserItem securityUserItem
   ) {
     final UpdateMeResponse usersResponse = changeUserService.updateMe(
       securityUserItem.getUserId(),
-      dto
+      updateUserRequest
     );
     return ResponseEntity.ok(usersResponse);
   }

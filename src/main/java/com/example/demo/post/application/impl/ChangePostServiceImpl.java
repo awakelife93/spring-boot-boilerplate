@@ -24,20 +24,28 @@ public class ChangePostServiceImpl implements ChangePostService {
   private final UserService userService;
 
   @Override
-  public CreatePostResponse createPost(CreatePostRequest dto, Long userId) {
+  public CreatePostResponse createPost(
+    CreatePostRequest createPostRequest,
+    Long userId
+  ) {
     final User user = userService.validateReturnUser(userId);
     final Post post = Post.toEntity(
-      dto.getTitle(),
-      dto.getSubTitle(),
-      dto.getContent(),
+      createPostRequest.getTitle(),
+      createPostRequest.getSubTitle(),
+      createPostRequest.getContent(),
       user
     );
     return CreatePostResponse.of(postRepository.save(post));
   }
 
   @Override
-  public UpdatePostResponse updatePost(Long postId, UpdatePostRequest dto) {
-    final Post post = postService.validateReturnPost(postId).update(dto);
+  public UpdatePostResponse updatePost(
+    Long postId,
+    UpdatePostRequest updatePostRequest
+  ) {
+    final Post post = postService
+      .validateReturnPost(postId)
+      .update(updatePostRequest);
     return UpdatePostResponse.of(post);
   }
 

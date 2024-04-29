@@ -31,9 +31,9 @@ public class ChangeUserServiceImpl implements ChangeUserService {
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
-  public CreateUserResponse createUser(CreateUserRequest dto) {
+  public CreateUserResponse createUser(CreateUserRequest createUserRequest) {
     final GetUserResponse confirmUser = getUserService.getUserByEmail(
-      dto.getEmail()
+      createUserRequest.getEmail()
     );
 
     if (!Objects.isNull(confirmUser)) {
@@ -41,7 +41,12 @@ public class ChangeUserServiceImpl implements ChangeUserService {
     }
 
     final User user = User
-      .toEntity(dto.getEmail(), dto.getName(), dto.getPassword(), null)
+      .toEntity(
+        createUserRequest.getEmail(),
+        createUserRequest.getName(),
+        createUserRequest.getPassword(),
+        null
+      )
       .encodePassword(bCryptPasswordEncoder);
 
     return CreateUserResponse.of(
@@ -51,14 +56,24 @@ public class ChangeUserServiceImpl implements ChangeUserService {
   }
 
   @Override
-  public UpdateUserResponse updateUser(Long userId, UpdateUserRequest dto) {
-    final User user = userService.validateReturnUser(userId).update(dto);
+  public UpdateUserResponse updateUser(
+    Long userId,
+    UpdateUserRequest updateUserRequest
+  ) {
+    final User user = userService
+      .validateReturnUser(userId)
+      .update(updateUserRequest);
     return UpdateUserResponse.of(user);
   }
 
   @Override
-  public UpdateMeResponse updateMe(Long userId, UpdateUserRequest dto) {
-    final User user = userService.validateReturnUser(userId).update(dto);
+  public UpdateMeResponse updateMe(
+    Long userId,
+    UpdateUserRequest updateUserRequest
+  ) {
+    final User user = userService
+      .validateReturnUser(userId)
+      .update(updateUserRequest);
 
     return UpdateMeResponse.of(user, tokenService.createFullTokens(user));
   }

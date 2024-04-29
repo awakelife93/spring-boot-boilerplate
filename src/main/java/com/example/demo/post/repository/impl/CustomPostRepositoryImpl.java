@@ -19,12 +19,12 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
 
   @Transactional(readOnly = true)
   public List<GetPostResponse> getExcludeUsersPosts(
-    GetExcludeUsersPostsRequest dto,
+    GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   ) {
     return jpaQueryFactory
       .selectFrom(post)
-      .where(post.user.id.notIn(dto.getUserIds()))
+      .where(post.user.id.notIn(getExcludeUsersPostsRequest.getUserIds()))
       .offset(pageable.getOffset())
       .limit(pageable.getPageSize())
       .fetch()

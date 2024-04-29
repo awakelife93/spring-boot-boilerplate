@@ -12,6 +12,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
@@ -64,9 +65,14 @@ public class User extends BaseSoftDeleteEntity {
     this.role = Objects.isNull(role) ? UserRole.USER : role;
   }
 
-  public User update(UpdateUserRequest dto) {
-    this.name = dto.getName();
-    this.role = dto.getRole();
+  public User update(UpdateUserRequest updateUserRequest) {
+    this.name = updateUserRequest.getName();
+    this.role = updateUserRequest.getRole();
+    return this;
+  }
+
+  public User updateDeletedDtForTest(LocalDateTime localDateTime) {
+    this.deletedDt = localDateTime;
     return this;
   }
 

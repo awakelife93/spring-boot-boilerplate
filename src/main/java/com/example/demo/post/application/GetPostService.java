@@ -11,7 +11,7 @@ public interface GetPostService {
   public List<GetPostResponse> getPostList(Pageable pageable);
 
   public List<GetPostResponse> getExcludeUsersPosts(
-    GetExcludeUsersPostsRequest dto,
+    GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   );
 }
