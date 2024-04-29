@@ -4,7 +4,7 @@ import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.component.JWTProvider;
 import com.example.demo.security.exception.TokenNotFoundException;
 import com.example.demo.user.entity.User;
-import com.example.demo.util.RedisUtil;
+import com.example.demo.util.RedisUtils;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 public class TokenService {
 
   private final JWTProvider jwtProvider;
-  private final RedisUtil redisUtil;
+  private final RedisUtils redisUtils;
 
   public String getRefreshToken(Long userId) {
-    String redisKey = redisUtil.generateSessionKey(userId);
-    String refreshToken = redisUtil.get(redisKey);
+    String redisKey = redisUtils.generateSessionKey(userId);
+    String refreshToken = redisUtils.get(redisKey);
 
     if (Objects.isNull(refreshToken)) {
       throw new TokenNotFoundException("Refresh Token");
@@ -28,8 +28,8 @@ public class TokenService {
   }
 
   public void deleteRefreshToken(Long userId) {
-    String redisKey = redisUtil.generateSessionKey(userId);
-    redisUtil.delete(redisKey);
+    String redisKey = redisUtils.generateSessionKey(userId);
+    redisUtils.delete(redisKey);
   }
 
   public String createAccessToken(User user) {

@@ -2,7 +2,8 @@ package com.example.demo.common.aop;
 
 import com.example.demo.common.response.ErrorResponse;
 import com.example.demo.common.response.OkResponse;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.demo.util.SwaggerUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
-  @Value("${springdoc.api-docs.path}")
-  private String apiDocsPath;
+  private final SwaggerUtils swaggerUtils;
 
   @Override
   public boolean supports(
@@ -43,8 +44,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
       return body;
     }
 
-    final String swaggerConfigUrl = apiDocsPath + "/swagger-config";
-    if (request.getURI().getPath().equals(swaggerConfigUrl)) {
+    if (
+      swaggerUtils.confirmPathEqualsSwaggerConfig(request.getURI().getPath())
+    ) {
       return body;
     }
 
