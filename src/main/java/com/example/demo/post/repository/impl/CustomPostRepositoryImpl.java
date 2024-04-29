@@ -7,7 +7,6 @@ import com.example.demo.post.dto.serve.response.GetPostResponse;
 import com.example.demo.post.repository.CustomPostRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +29,6 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
       .fetch()
       .stream()
       .map(GetPostResponse::new)
-      .collect(Collectors.toList());
+      .toList();
   }
 }

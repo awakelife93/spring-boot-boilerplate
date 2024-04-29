@@ -6,7 +6,6 @@ import com.example.demo.user.entity.User;
 import com.example.demo.user.repository.UserRepository;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,6 +47,6 @@ public class GetUserServiceImpl implements GetUserService {
       .getContent()
       .stream()
       .map(GetUserResponse::new)
-      .collect(Collectors.toList());
+      .toList();
   }
 }

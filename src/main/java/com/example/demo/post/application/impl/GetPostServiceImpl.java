@@ -7,7 +7,6 @@ import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class GetPostServiceImpl implements GetPostService {
       .getContent()
       .stream()
       .map(GetPostResponse::new)
-      .collect(Collectors.toList());
+      .toList();
   }
 
   @Override
