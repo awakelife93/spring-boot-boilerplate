@@ -15,9 +15,9 @@ public abstract class BaseChangerEntity extends BaseEntity {
 
   @CreatedBy
   @Column(nullable = false, updatable = false)
-  private Long createdBy;
+  protected Long createdBy;
 
   @LastModifiedBy
   @Column(nullable = false)
-  private Long updatedBy;
+  protected Long updatedBy;
 }
