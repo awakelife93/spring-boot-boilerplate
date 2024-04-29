@@ -21,15 +21,15 @@ public abstract class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true, updatable = false, nullable = false)
-  private Long id;
+  protected Long id;
 
   @CreatedDate
   @Column(nullable = false, updatable = false)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-  private LocalDateTime createdDt;
+  protected LocalDateTime createdDt;
 
   @LastModifiedDate
   @Column(nullable = false)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-  private LocalDateTime updatedDt;
+  protected LocalDateTime updatedDt;
 }
