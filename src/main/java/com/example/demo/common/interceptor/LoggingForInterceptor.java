@@ -26,6 +26,7 @@ public class LoggingForInterceptor implements HandlerInterceptor {
       handler,
       response.getStatus()
     );
+
     HandlerInterceptor.super.postHandle(request, response, handler, null);
   }
 }
