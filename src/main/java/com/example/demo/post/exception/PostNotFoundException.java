@@ -6,6 +6,6 @@ import org.springframework.http.HttpStatus;
 public class PostNotFoundException extends NotFoundException {
 
   public PostNotFoundException() {
-    super(HttpStatus.NOT_FOUND, "Is Not Found Post");
+    super(HttpStatus.NOT_FOUND, "Post Not Found");
   }
 }

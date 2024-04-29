@@ -1,6 +1,5 @@
 package com.example.demo.user.application.impl;
 
-import com.example.demo.auth.exception.AlreadyUserExistException;
 import com.example.demo.security.service.TokenService;
 import com.example.demo.user.application.ChangeUserService;
 import com.example.demo.user.application.GetUserService;
@@ -12,6 +11,7 @@ import com.example.demo.user.dto.serve.response.GetUserResponse;
 import com.example.demo.user.dto.serve.response.UpdateMeResponse;
 import com.example.demo.user.dto.serve.response.UpdateUserResponse;
 import com.example.demo.user.entity.User;
+import com.example.demo.user.exception.AlreadyUserExistException;
 import com.example.demo.user.repository.UserRepository;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;

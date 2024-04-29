@@ -1,5 +1,6 @@
 package com.example.demo.user.dto.serve.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,10 +15,12 @@ import lombok.experimental.Accessors;
 public class CreateUserRequest {
 
   @NotBlank(message = "field name is blank")
+  @Schema(description = "User Name", nullable = false)
   private String name;
 
   @NotBlank(message = "field email is blank")
   @Email(message = "field email is not email format")
+  @Schema(description = "User Email", nullable = false)
   private String email;
 
   @NotBlank(message = "field password is blank")
@@ -26,5 +29,6 @@ public class CreateUserRequest {
     max = 20,
     message = "field password is min size 8 and max size 20"
   )
+  @Schema(description = "User Password", nullable = false)
   private String password;
 }

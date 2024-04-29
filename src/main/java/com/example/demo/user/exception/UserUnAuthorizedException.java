@@ -6,6 +6,6 @@ import org.springframework.http.HttpStatus;
 public class UserUnAuthorizedException extends UnAuthorizedException {
 
   public UserUnAuthorizedException() {
-    super(HttpStatus.UNAUTHORIZED, "Is Failed Auth.");
+    super(HttpStatus.UNAUTHORIZED, "User UnAuthorized");
   }
 }

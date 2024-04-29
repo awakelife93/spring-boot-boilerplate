@@ -25,18 +25,26 @@ public class WebSecurityConfig {
   private final CorsConfig corsConfig;
   private final JWTAuthFilter jwtAuthFilter;
   private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+  private final String apiVersion1 = "/api/v1";
 
-  private String[] whiteListAuthEndpoints() {
-    String[] endPoints = new String[] { "/auth/signIn", "/auth/signUp" };
+  private String[] whiteListDefaultEndpoints() {
+    String[] endPoints = new String[] {
+      "/api-docs/**",
+      "/swagger-ui/**",
+      "/swagger.html",
+      apiVersion1 + "/auth/signIn",
+      apiVersion1 + "/users/register",
+    };
+
     return endPoints;
   }
 
   private String[] whiteListGetEndpoints() {
     String[] endPoints = new String[] {
-      "/users",
-      "/posts",
-      "/posts/exclude-users",
+      apiVersion1 + "/users",
+      apiVersion1 + "/posts",
     };
+
     return endPoints;
   }
 
@@ -58,7 +66,7 @@ public class WebSecurityConfig {
       )
       .authorizeHttpRequests(request ->
         request
-          .requestMatchers(whiteListAuthEndpoints())
+          .requestMatchers(whiteListDefaultEndpoints())
           .permitAll()
           .requestMatchers(HttpMethod.GET, whiteListGetEndpoints())
           .permitAll()

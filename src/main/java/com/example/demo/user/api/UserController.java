@@ -1,5 +1,6 @@
 package com.example.demo.user.api;
 
+import com.example.demo.common.response.ErrorResponse;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.annotation.CurrentUser;
 import com.example.demo.user.application.ChangeUserService;
@@ -10,6 +11,13 @@ import com.example.demo.user.dto.serve.response.CreateUserResponse;
 import com.example.demo.user.dto.serve.response.GetUserResponse;
 import com.example.demo.user.dto.serve.response.UpdateMeResponse;
 import com.example.demo.user.dto.serve.response.UpdateUserResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,19 +31,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "User", description = "User API")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
   private final GetUserService getUserService;
   private final ChangeUserService changeUserService;
 
+  @Operation(
+    operationId = "getUserById",
+    summary = "Get User",
+    description = "Get User By User Id API"
+  )
+  @ApiResponses(
+    value = {
+      @ApiResponse(
+        responseCode = "200",
+        description = "OK",
+        content = @Content(
+          schema = @Schema(
+            nullable = true,
+            implementation = GetUserResponse.class
+          )
+        )
+      ),
+      @ApiResponse(
+        responseCode = "401",
+        description = "Full authentication is required to access this resource",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+    }
+  )
   @GetMapping("/{userId}")
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<GetUserResponse> getUserById(
     @PathVariable("userId") Long userId
   ) {
@@ -43,8 +76,25 @@ public class UserController {
     return ResponseEntity.ok(userResponse);
   }
 
+  @Operation(
+    operationId = "getUserList",
+    summary = "Get User List",
+    description = "Get User List API"
+  )
+  @ApiResponses(
+    value = {
+      @ApiResponse(
+        responseCode = "200",
+        description = "OK",
+        content = @Content(
+          array = @ArraySchema(
+            schema = @Schema(implementation = GetUserResponse.class)
+          )
+        )
+      ),
+    }
+  )
   @GetMapping
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<GetUserResponse>> getUserList(Pageable pageable) {
     final List<GetUserResponse> usersResponse = getUserService.getUserList(
       pageable
@@ -52,19 +102,70 @@ public class UserController {
     return ResponseEntity.ok(usersResponse);
   }
 
+  @Operation(
+    operationId = "createUser",
+    summary = "Create User",
+    description = "Create User API"
+  )
+  @ApiResponses(
+    value = {
+      @ApiResponse(
+        responseCode = "201",
+        description = "Created",
+        content = @Content(
+          schema = @Schema(implementation = CreateUserResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "409",
+        description = "Already User Exist",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+    }
+  )
   @PostMapping("/register")
-  @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<CreateUserResponse> createUser(
     @RequestBody @Valid CreateUserRequest dto
   ) {
     final CreateUserResponse createUserResponse = changeUserService.createUser(
       dto
     );
-    return ResponseEntity.ok(createUserResponse);
+    return ResponseEntity.status(HttpStatus.CREATED).body(createUserResponse);
   }
 
+  @Operation(
+    operationId = "updateUser",
+    summary = "Update User",
+    description = "Update User API"
+  )
+  @ApiResponses(
+    value = {
+      @ApiResponse(
+        responseCode = "200",
+        description = "OK",
+        content = @Content(
+          schema = @Schema(implementation = UpdateUserResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "401",
+        description = "Full authentication is required to access this resource",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "404",
+        description = "User Not Found",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+    }
+  )
   @PatchMapping("/{userId}")
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<UpdateUserResponse> updateUser(
     @RequestBody @Valid UpdateUserRequest dto,
     @PathVariable("userId") Long userId
@@ -76,8 +177,37 @@ public class UserController {
     return ResponseEntity.ok(usersResponse);
   }
 
+  @Operation(
+    operationId = "updateMe",
+    summary = "Update Me",
+    description = "Update Me API"
+  )
+  @ApiResponses(
+    value = {
+      @ApiResponse(
+        responseCode = "200",
+        description = "OK",
+        content = @Content(
+          schema = @Schema(implementation = UpdateMeResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "401",
+        description = "Full authentication is required to access this resource",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "404",
+        description = "User Not Found",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+    }
+  )
   @PatchMapping
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<UpdateMeResponse> updateMe(
     @RequestBody @Valid UpdateUserRequest dto,
     @CurrentUser SecurityUserItem securityUserItem
@@ -89,9 +219,26 @@ public class UserController {
     return ResponseEntity.ok(usersResponse);
   }
 
+  @Operation(
+    operationId = "deleteUser",
+    summary = "Delete User",
+    description = "Delete User API"
+  )
+  @ApiResponses(
+    value = {
+      @ApiResponse(responseCode = "204", description = "No Content"),
+      @ApiResponse(
+        responseCode = "401",
+        description = "Full authentication is required to access this resource",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+    }
+  )
   @DeleteMapping("/{userId}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUser(@PathVariable("userId") Long userId) {
+  public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long userId) {
     changeUserService.deleteUser(userId);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }

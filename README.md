@@ -8,6 +8,7 @@ Spring boot 3.1.4
 Gradle 8.2.1
 Spring Security 6.1.4
 Spring Batch 5.0.3
+Springdoc OpenAPI
 Postgresql
 Pgadmin
 Jpa

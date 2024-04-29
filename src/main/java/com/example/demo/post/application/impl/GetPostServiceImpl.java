@@ -32,7 +32,7 @@ public class GetPostServiceImpl implements GetPostService {
   }
 
   @Override
-  public List<GetPostResponse> getPosts(Pageable pageable) {
+  public List<GetPostResponse> getPostList(Pageable pageable) {
     return postRepository
       .findAll(pageable)
       .getContent()

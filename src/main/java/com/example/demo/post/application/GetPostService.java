@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface GetPostService {
   public GetPostResponse getPostById(Long postId);
 
-  public List<GetPostResponse> getPosts(Pageable pageable);
+  public List<GetPostResponse> getPostList(Pageable pageable);
 
   public List<GetPostResponse> getExcludeUsersPosts(
     GetExcludeUsersPostsRequest dto,

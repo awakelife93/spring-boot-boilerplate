@@ -6,3 +6,6 @@ spring:
     generate-ddl: false
     properties:
       "[hibernate.hbm2ddl.auto]": none
+springdoc:
+  swagger-ui:
+    enabled: false

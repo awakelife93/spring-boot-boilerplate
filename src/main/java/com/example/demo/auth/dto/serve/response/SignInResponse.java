@@ -2,6 +2,7 @@ package com.example.demo.auth.dto.serve.response;
 
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.user.entity.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,14 +14,23 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignInResponse {
 
+  @Schema(description = "User Id", nullable = false)
   private Long userId;
 
+  @Schema(
+    description = "User Role",
+    nullable = false,
+    implementation = UserRole.class
+  )
   private UserRole role;
 
+  @Schema(description = "User Name", nullable = false)
   private String name;
 
+  @Schema(description = "User Email", nullable = false)
   private String email;
 
+  @Schema(description = "User Access Token", nullable = false)
   private String accessToken;
 
   @Builder

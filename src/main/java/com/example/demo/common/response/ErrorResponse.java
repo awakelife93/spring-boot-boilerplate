@@ -1,12 +1,18 @@
 package com.example.demo.common.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 @Getter
 public class ErrorResponse {
 
+  @Schema(description = "Error Code", nullable = false)
   private int code;
+
+  @Schema(description = "Error Message", nullable = false)
   private String message;
+
+  @Schema(description = "Error Item", nullable = false)
   private Object errors;
 
   private ErrorResponse(int code) {
