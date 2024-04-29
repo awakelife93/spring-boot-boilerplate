@@ -30,7 +30,7 @@ public class ErrorHandler {
     );
 
     log.error("handleNotFoundException Error", exception);
-    return new ResponseEntity<ErrorResponse>(response, exception.getCode());
+    return ResponseEntity.status(exception.getCode().value()).body(response);
   }
 
   @ExceptionHandler(UnAuthorizedException.class)
@@ -43,7 +43,7 @@ public class ErrorHandler {
     );
 
     log.error("handleUnAuthorizedException Error", exception);
-    return new ResponseEntity<ErrorResponse>(response, exception.getCode());
+    return ResponseEntity.status(exception.getCode().value()).body(response);
   }
 
   @ExceptionHandler(AlreadyExistException.class)
@@ -56,7 +56,7 @@ public class ErrorHandler {
     );
 
     log.error("handleAlreadyExistException Error", exception);
-    return new ResponseEntity<ErrorResponse>(response, exception.getCode());
+    return ResponseEntity.status(exception.getCode().value()).body(response);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -78,7 +78,7 @@ public class ErrorHandler {
     );
 
     log.error("handleMethodArgumentNotValidException Error", exception);
-    return new ResponseEntity<ErrorResponse>(response, HttpStatus.BAD_REQUEST);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
   }
 
   @ExceptionHandler(AuthenticationException.class)
@@ -97,7 +97,7 @@ public class ErrorHandler {
       httpServletRequest.getRequestURI(),
       exception.getMessage()
     );
-    return new ResponseEntity<ErrorResponse>(response, HttpStatus.UNAUTHORIZED);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
   }
 
   @ExceptionHandler(NoHandlerFoundException.class)
@@ -111,7 +111,7 @@ public class ErrorHandler {
     );
 
     log.error("handleNoHandlerFoundException Error", exception);
-    return new ResponseEntity<ErrorResponse>(response, HttpStatus.NOT_FOUND);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
   }
 
   @ExceptionHandler(Exception.class)
@@ -122,9 +122,8 @@ public class ErrorHandler {
     );
 
     log.error("handleException Error", exception);
-    return new ResponseEntity<ErrorResponse>(
-      response,
-      HttpStatus.INTERNAL_SERVER_ERROR
-    );
+    return ResponseEntity
+      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .body(response);
   }
 }
