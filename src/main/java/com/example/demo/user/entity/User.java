@@ -3,7 +3,6 @@ package com.example.demo.user.entity;
 import com.example.demo.common.constant.UserRole;
 import com.example.demo.common.entity.BaseSoftDeleteEntity;
 import com.example.demo.post.entity.Post;
-import com.example.demo.user.dto.serve.request.UpdateUserRequest;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -63,9 +62,9 @@ public class User extends BaseSoftDeleteEntity {
     this.role = role;
   }
 
-  public User update(UpdateUserRequest updateUserRequest) {
-    this.name = updateUserRequest.getName();
-    this.role = updateUserRequest.getRole();
+  public User update(String name, UserRole role) {
+    this.name = name;
+    this.role = role;
     return this;
   }
 

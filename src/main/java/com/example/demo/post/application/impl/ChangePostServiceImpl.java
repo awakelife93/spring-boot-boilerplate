@@ -45,7 +45,11 @@ public class ChangePostServiceImpl implements ChangePostService {
   ) {
     final Post post = postService
       .validateReturnPost(postId)
-      .update(updatePostRequest);
+      .update(
+        updatePostRequest.getTitle(),
+        updatePostRequest.getSubTitle(),
+        updatePostRequest.getContent()
+      );
     return UpdatePostResponse.of(post);
   }
 

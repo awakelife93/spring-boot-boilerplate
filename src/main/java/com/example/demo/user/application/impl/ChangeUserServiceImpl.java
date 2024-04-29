@@ -63,7 +63,7 @@ public class ChangeUserServiceImpl implements ChangeUserService {
   ) {
     final User user = userService
       .validateReturnUser(userId)
-      .update(updateUserRequest);
+      .update(updateUserRequest.getName(), updateUserRequest.getRole());
     return UpdateUserResponse.of(user);
   }
 
@@ -74,7 +74,7 @@ public class ChangeUserServiceImpl implements ChangeUserService {
   ) {
     final User user = userService
       .validateReturnUser(userId)
-      .update(updateUserRequest);
+      .update(updateUserRequest.getName(), updateUserRequest.getRole());
 
     return UpdateMeResponse.of(user, tokenService.createFullTokens(user));
   }
