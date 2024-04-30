@@ -27,7 +27,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class DeleteUserConfig extends DefaultBatchConfiguration {
 
   private final UserRepository userRepository;
-  private List<User> users;
 
   @Bean
   public Job deleteUser(
@@ -72,7 +71,14 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
   ) {
     return (
       (contribution, chunkContext) -> {
-        this.users = userRepository.findDeletedUsersYearAgo(now);
+        List<User> users = userRepository.findDeletedUsersYearAgo(now);
+
+        chunkContext
+          .getStepContext()
+          .getStepExecution()
+          .getJobExecution()
+          .getExecutionContext()
+          .put("users", users);
 
         return RepeatStatus.FINISHED;
       }
@@ -84,7 +90,14 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
   public Tasklet deleteUsersTasklet() {
     return (
       (contribution, chunkContext) -> {
-        for (User user : this.users) {
+        List<User> users = (List<User>) chunkContext
+          .getStepContext()
+          .getStepExecution()
+          .getJobExecution()
+          .getExecutionContext()
+          .get("users");
+
+        for (User user : users) {
           log.info(
             "Hard Deleted User By = {} {} {} {}",
             user.getId(),
