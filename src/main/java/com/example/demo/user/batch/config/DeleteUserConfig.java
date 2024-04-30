@@ -2,6 +2,7 @@ package com.example.demo.user.batch.config;
 
 import com.example.demo.user.entity.User;
 import com.example.demo.user.repository.UserRepository;
+import com.example.demo.utils.BatchUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class DeleteUserConfig extends DefaultBatchConfiguration {
 
   private final UserRepository userRepository;
+  private final BatchUtils batchUtils;
 
   @Bean
   public Job deleteUser(
@@ -73,12 +75,7 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
       (contribution, chunkContext) -> {
         List<User> users = userRepository.findDeletedUsersYearAgo(now);
 
-        chunkContext
-          .getStepContext()
-          .getStepExecution()
-          .getJobExecution()
-          .getExecutionContext()
-          .put("users", users);
+        batchUtils.setParameter(chunkContext, "users", users);
 
         return RepeatStatus.FINISHED;
       }
@@ -90,12 +87,10 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
   public Tasklet deleteUsersTasklet() {
     return (
       (contribution, chunkContext) -> {
-        List<User> users = (List<User>) chunkContext
-          .getStepContext()
-          .getStepExecution()
-          .getJobExecution()
-          .getExecutionContext()
-          .get("users");
+        List<User> users = (List<User>) batchUtils.getParameter(
+          chunkContext,
+          "users"
+        );
 
         for (User user : users) {
           log.info(
@@ -105,6 +100,7 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
             user.getName(),
             user.getRole().toString()
           );
+
           userRepository.hardDeleteUser(user.getId());
         }
 
