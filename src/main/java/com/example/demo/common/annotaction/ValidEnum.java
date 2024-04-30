@@ -1,6 +1,6 @@
 package com.example.demo.common.annotaction;
 
-import com.example.demo.util.EnumValidator;
+import com.example.demo.utils.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.ElementType;

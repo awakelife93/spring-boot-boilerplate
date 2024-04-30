@@ -4,7 +4,7 @@ import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.component.JWTProvider;
 import com.example.demo.security.exception.TokenNotFoundException;
 import com.example.demo.user.entity.User;
-import com.example.demo.util.RedisUtils;
+import com.example.demo.utils.RedisUtils;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package com.example.demo.utils;
 
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;

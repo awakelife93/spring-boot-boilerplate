@@ -2,7 +2,7 @@ package com.example.demo.common.aop;
 
 import com.example.demo.common.response.ErrorResponse;
 import com.example.demo.common.response.OkResponse;
-import com.example.demo.util.SwaggerUtils;
+import com.example.demo.utils.SwaggerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;

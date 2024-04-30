@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package com.example.demo.utils;
 
 import com.example.demo.common.annotaction.ValidEnum;
 import jakarta.validation.ConstraintValidator;
