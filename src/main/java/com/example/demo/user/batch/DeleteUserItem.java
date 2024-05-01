@@ -1,10 +1,13 @@
 package com.example.demo.user.batch;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DeleteUserItem {
 
   private Long id;
