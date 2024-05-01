@@ -1,4 +1,4 @@
-package com.example.demo.user.batch;
+package com.example.demo.user.batch.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

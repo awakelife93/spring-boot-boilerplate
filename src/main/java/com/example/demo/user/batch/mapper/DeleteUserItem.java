@@ -1,4 +1,4 @@
-package com.example.demo.user.batch;
+package com.example.demo.user.batch.mapper;
 
 import lombok.AccessLevel;
 import lombok.Builder;

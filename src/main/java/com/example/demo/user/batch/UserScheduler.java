@@ -1,4 +1,4 @@
-package com.example.demo.user.batch.scheduler;
+package com.example.demo.user.batch;
 
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class DeleteUserScheduler {
+public class UserScheduler {
 
   private final JobLauncher jobLauncher;
   private final JobRegistry jobRegistry;

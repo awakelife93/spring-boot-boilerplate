@@ -1,7 +1,7 @@
 package com.example.demo.user.batch.config;
 
-import com.example.demo.user.batch.DeleteUserItem;
-import com.example.demo.user.batch.DeleteUserItemRowMapper;
+import com.example.demo.user.batch.mapper.DeleteUserItem;
+import com.example.demo.user.batch.mapper.DeleteUserItemRowMapper;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
