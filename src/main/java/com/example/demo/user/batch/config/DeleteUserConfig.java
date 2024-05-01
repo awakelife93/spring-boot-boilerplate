@@ -1,10 +1,12 @@
 package com.example.demo.user.batch.config;
 
-import com.example.demo.user.entity.User;
-import com.example.demo.user.repository.UserRepository;
-import com.example.demo.utils.BatchUtils;
+import com.example.demo.user.batch.DeleteUserItem;
+import com.example.demo.user.batch.DeleteUserItemRowMapper;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -15,11 +17,16 @@ import org.springframework.batch.core.configuration.support.DefaultBatchConfigur
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JdbcPagingItemReader;
+import org.springframework.batch.item.database.Order;
+import org.springframework.batch.item.database.PagingQueryProvider;
+import org.springframework.batch.item.database.builder.JdbcPagingItemReaderBuilder;
+import org.springframework.batch.item.database.support.SqlPagingQueryProviderFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
@@ -27,85 +34,88 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class DeleteUserConfig extends DefaultBatchConfiguration {
 
-  private final UserRepository userRepository;
-  private final BatchUtils batchUtils;
+  private final JdbcTemplate jdbcTemplate;
+  private final DataSource dataSource;
+  private final int chunkSize = 10;
 
   @Bean
   public Job deleteUser(
     JobRepository jobRepository,
-    Step findDeletedUsersYearAgoStep,
-    Step deleteUsersStep
-  ) {
+    PlatformTransactionManager transactionManager
+  ) throws Exception {
     return new JobBuilder("deleteUserJob", jobRepository)
-      .start(findDeletedUsersYearAgoStep)
-      .next(deleteUsersStep)
+      .flow(generateStep(jobRepository, transactionManager))
+      .end()
       .build();
   }
 
   @Bean
   @JobScope
-  public Step findDeletedUsersYearAgoStep(
+  Step generateStep(
     JobRepository jobRepository,
-    Tasklet findDeletedUsersYearAgoTasklet,
-    PlatformTransactionManager platformTransactionManager
-  ) {
-    return new StepBuilder("findDeletedUsersYearAgoStep", jobRepository)
-      .tasklet(findDeletedUsersYearAgoTasklet, platformTransactionManager)
-      .build();
-  }
-
-  @Bean
-  @JobScope
-  public Step deleteUsersStep(
-    JobRepository jobRepository,
-    Tasklet deleteUsersTasklet,
-    PlatformTransactionManager platformTransactionManager
-  ) {
-    return new StepBuilder("deleteUsersStep", jobRepository)
-      .tasklet(deleteUsersTasklet, platformTransactionManager)
+    PlatformTransactionManager transactionManager
+  ) throws Exception {
+    return new StepBuilder("step", jobRepository)
+      .<DeleteUserItem, DeleteUserItem>chunk(chunkSize, transactionManager)
+      .allowStartIfComplete(true)
+      .reader(reader(null))
+      .writer(writer())
       .build();
   }
 
   @Bean
   @StepScope
-  public Tasklet findDeletedUsersYearAgoTasklet(
+  public JdbcPagingItemReader<DeleteUserItem> reader(
     @Value("#{jobParameters[now]}") LocalDateTime now
-  ) {
-    return (
-      (contribution, chunkContext) -> {
-        List<User> users = userRepository.findDeletedUsersYearAgo(now);
-
-        batchUtils.setParameter(chunkContext, "users", users);
-
-        return RepeatStatus.FINISHED;
-      }
-    );
+  ) throws Exception {
+    return new JdbcPagingItemReaderBuilder<DeleteUserItem>()
+      .name("DeletedUsersYearAgoReader")
+      .dataSource(dataSource)
+      .pageSize(chunkSize)
+      .fetchSize(chunkSize)
+      .queryProvider(pagingQueryProvider())
+      .parameterValues(
+        Collections.singletonMap("oneYearBeforeNow", now.minusYears(1))
+      )
+      .rowMapper(new DeleteUserItemRowMapper())
+      .build();
   }
 
   @Bean
   @StepScope
-  public Tasklet deleteUsersTasklet() {
-    return (
-      (contribution, chunkContext) -> {
-        List<User> users = (List<User>) batchUtils.getParameter(
-          chunkContext,
-          "users"
+  public ItemWriter<DeleteUserItem> writer() {
+    return items -> {
+      for (DeleteUserItem item : items) {
+        log.info(
+          "Hard Deleted User By = {} {} {} {}",
+          item.getId(),
+          item.getEmail(),
+          item.getName(),
+          item.getRole()
         );
 
-        for (User user : users) {
-          log.info(
-            "Hard Deleted User By = {} {} {} {}",
-            user.getId(),
-            user.getEmail(),
-            user.getName(),
-            user.getRole().toString()
-          );
-
-          userRepository.hardDeleteUser(user.getId());
-        }
-
-        return RepeatStatus.FINISHED;
+        jdbcTemplate.update(
+          "DELETE FROM \"user\" WHERE user_id = ?",
+          item.getId()
+        );
       }
-    );
+    };
+  }
+
+  @Bean
+  public PagingQueryProvider pagingQueryProvider() throws Exception {
+    SqlPagingQueryProviderFactoryBean queryProvider = new SqlPagingQueryProviderFactoryBean();
+
+    queryProvider.setDataSource(dataSource);
+    queryProvider.setSelectClause("select *");
+    queryProvider.setFromClause("from \"user\"");
+    queryProvider.setWhereClause("where deleted_dt <= :oneYearBeforeNow");
+
+    Map<String, Order> sortKeys = new HashMap<>(1);
+    sortKeys.put("user_id", Order.ASCENDING);
+
+    queryProvider.setSortKeys(sortKeys);
+
+    return queryProvider.getObject();
   }
 }
