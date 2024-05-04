@@ -101,7 +101,7 @@ public class ErrorHandler {
   }
 
   @ExceptionHandler(NoHandlerFoundException.class)
-  public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(
+  protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(
     NoHandlerFoundException exception
   ) {
     ErrorResponse response = ErrorResponse.of(
