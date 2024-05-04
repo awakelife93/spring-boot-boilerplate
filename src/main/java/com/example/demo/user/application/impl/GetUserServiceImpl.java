@@ -3,6 +3,7 @@ package com.example.demo.user.application.impl;
 import com.example.demo.user.application.GetUserService;
 import com.example.demo.user.dto.serve.response.GetUserResponse;
 import com.example.demo.user.entity.User;
+import com.example.demo.user.exception.UserNotFoundException;
 import com.example.demo.user.repository.UserRepository;
 import java.util.List;
 import java.util.Objects;
@@ -20,11 +21,9 @@ public class GetUserServiceImpl implements GetUserService {
 
   @Override
   public GetUserResponse getUserById(Long userId) {
-    final User user = userRepository.findOneById(userId).orElse(null);
-
-    if (Objects.isNull(user)) {
-      return null;
-    }
+    final User user = userRepository
+      .findOneById(userId)
+      .orElseThrow(() -> new UserNotFoundException());
 
     return GetUserResponse.of(user);
   }
@@ -46,7 +45,7 @@ public class GetUserServiceImpl implements GetUserService {
       .findAll(pageable)
       .getContent()
       .stream()
-      .map(GetUserResponse::new)
+      .map(GetUserResponse::of)
       .toList();
   }
 }

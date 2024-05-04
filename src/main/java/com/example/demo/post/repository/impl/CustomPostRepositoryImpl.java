@@ -28,7 +28,7 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
       .limit(pageable.getPageSize())
       .fetch()
       .stream()
-      .map(GetPostResponse::new)
+      .map(GetPostResponse::of)
       .toList();
   }
 }
