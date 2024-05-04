@@ -53,15 +53,19 @@ public class UserController {
         responseCode = "200",
         description = "OK",
         content = @Content(
-          schema = @Schema(
-            nullable = true,
-            implementation = GetUserResponse.class
-          )
+          schema = @Schema(implementation = GetUserResponse.class)
         )
       ),
       @ApiResponse(
         responseCode = "401",
         description = "Full authentication is required to access this resource",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "404",
+        description = "User Not Found",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
@@ -117,6 +121,13 @@ public class UserController {
         )
       ),
       @ApiResponse(
+        responseCode = "400",
+        description = "Field Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
         responseCode = "409",
         description = "Already User Exist",
         content = @Content(
@@ -147,6 +158,13 @@ public class UserController {
         description = "OK",
         content = @Content(
           schema = @Schema(implementation = UpdateUserResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "400",
+        description = "Request Body Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
         )
       ),
       @ApiResponse(

@@ -57,6 +57,13 @@ public class PostController {
         )
       ),
       @ApiResponse(
+        responseCode = "400",
+        description = "Request Body Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
         responseCode = "401",
         description = "Full authentication is required to access this resource",
         content = @Content(
@@ -120,6 +127,13 @@ public class PostController {
         )
       ),
       @ApiResponse(
+        responseCode = "400",
+        description = "Request Body Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
         responseCode = "401",
         description = "Full authentication is required to access this resource",
         content = @Content(
@@ -151,14 +165,19 @@ public class PostController {
         responseCode = "200",
         description = "OK",
         content = @Content(
-          array = @ArraySchema(
-            schema = @Schema(implementation = GetPostResponse.class)
-          )
+          schema = @Schema(implementation = GetPostResponse.class)
         )
       ),
       @ApiResponse(
         responseCode = "401",
         description = "Full authentication is required to access this resource",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "404",
+        description = "Post Not Found",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
@@ -185,6 +204,13 @@ public class PostController {
         description = "OK",
         content = @Content(
           schema = @Schema(implementation = UpdatePostResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "400",
+        description = "Request Body Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
         )
       ),
       @ApiResponse(

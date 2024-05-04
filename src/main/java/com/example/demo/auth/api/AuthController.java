@@ -45,6 +45,13 @@ public class AuthController {
         )
       ),
       @ApiResponse(
+        responseCode = "400",
+        description = "Request Body Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
+        )
+      ),
+      @ApiResponse(
         responseCode = "401",
         description = "User UnAuthorized",
         content = @Content(
