@@ -14,3 +14,4 @@ logging:
     "[org.hibernate.transaction.JDBCTransaction]": debug
     "[org.hibernate.jdbc.ConnectionManager]": debug
     "[org.springframework.orm.JpaTransactionManager]": debug
+    "[org.springframework.jdbc]": debug
