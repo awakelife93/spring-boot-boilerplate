@@ -55,7 +55,7 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
     JobRepository jobRepository,
     PlatformTransactionManager transactionManager
   ) throws Exception {
-    return new StepBuilder("step", jobRepository)
+    return new StepBuilder("deleteUserStep", jobRepository)
       .<DeleteUserItem, DeleteUserItem>chunk(chunkSize, transactionManager)
       .allowStartIfComplete(true)
       .reader(reader(null))
@@ -87,11 +87,12 @@ public class DeleteUserConfig extends DefaultBatchConfiguration {
     return items -> {
       for (DeleteUserItem item : items) {
         log.info(
-          "Hard Deleted User By = {} {} {} {}",
+          "Hard Deleted User By = {} {} {} {} {}",
           item.getId(),
           item.getEmail(),
           item.getName(),
-          item.getRole()
+          item.getRole(),
+          item.getDeletedDt()
         );
 
         jdbcTemplate.update(

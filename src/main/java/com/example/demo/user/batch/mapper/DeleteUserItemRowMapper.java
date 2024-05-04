@@ -1,5 +1,6 @@
 package com.example.demo.user.batch.mapper;
 
+import com.example.demo.utils.ConvertUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +14,10 @@ public class DeleteUserItemRowMapper implements RowMapper<DeleteUserItem> {
       resultSet.getLong("user_id"),
       resultSet.getString("email"),
       resultSet.getString("name"),
-      resultSet.getString("role")
+      resultSet.getString("role"),
+      ConvertUtils.convertStringToLocalDateTime(
+        resultSet.getString("deleted_dt")
+      )
     );
 
     return user;
