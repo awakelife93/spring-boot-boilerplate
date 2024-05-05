@@ -70,7 +70,9 @@ dependencies {
   // test
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.security:spring-security-test'
+  testImplementation 'org.springframework.batch:spring-batch-test'
   testImplementation 'org.instancio:instancio-junit:4.5.1'
+  testRuntimeOnly "com.h2database:h2"
 }
 
 tasks.named('test') {
