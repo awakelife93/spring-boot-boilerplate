@@ -1,7 +1,5 @@
 package com.example.demo.common;
 
-import com.example.demo.common.aop.ResponseAdvice;
-import com.example.demo.common.exception.handler.ErrorHandler;
 import com.example.demo.utils.SwaggerUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +11,15 @@ import org.springframework.web.context.WebApplicationContext;
 public class BaseIntegrationControllerItem {
 
   @Autowired
-  protected MockMvc mockMvc;
-
-  @Autowired
   protected WebApplicationContext webApplicationContext;
-
-  @Autowired
-  protected ResponseAdvice responseAdvice;
 
   @Autowired
   protected ObjectMapper objectMapper;
 
-  @Autowired
-  protected ErrorHandler errorHandler;
-
   @MockBean
   protected SwaggerUtils swaggerUtils;
+
+  protected MockMvc mockMvc;
 
   /**
    * ResponseAdvice Status
