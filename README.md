@@ -37,10 +37,9 @@
   - spring security + jwt logic
 - utils
 - resources
-  - prod, dev, local, common, secret, batch, test
+  - prod, dev, local, common, secret, test
     - secret: Write variables that need to be hidden.
     - common: Write common variables for the project.
-    - batch: Write the variables needed for the batch.
     - test: Create the variables needed for your test environment.
 
 ### Note
@@ -50,10 +49,9 @@
   - If you plan to use it, you need to check the environment variables.
 - application-secret.yml
   - application-secret.yml is git ignore, please check the example file.
-- create spring batch metadata table
+- create spring batch metadata table (localhost, development and production environments.)
   - Run your ddl script or Please refer to [github - spring batch ](https://github.com/spring-projects/spring-batch/blob/5.0.x/spring-batch-core/src/main/resources/org/springframework/batch/core/schema-postgresql.sql)
     - Since this project uses postgresql, the spring.batch.jdbc.initialize-schema: always option does not work.
-    - [Options for batch testing](src/test/java/com/example/demo/common/README.md)
 
 ### Author
 Hyunwoo Park
