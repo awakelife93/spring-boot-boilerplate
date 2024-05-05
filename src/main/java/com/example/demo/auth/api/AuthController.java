@@ -127,9 +127,11 @@ public class AuthController {
   public ResponseEntity<RefreshAccessTokenResponse> refreshAccessToken(
     @CurrentUser SecurityUserItem securityUserItem
   ) {
-    final RefreshAccessTokenResponse refreshAccessToken = authService.refreshAccessToken(
+    final RefreshAccessTokenResponse refreshAccessTokenResponse = authService.refreshAccessToken(
       securityUserItem
     );
-    return ResponseEntity.status(HttpStatus.CREATED).body(refreshAccessToken);
+    return ResponseEntity
+      .status(HttpStatus.CREATED)
+      .body(refreshAccessTokenResponse);
   }
 }

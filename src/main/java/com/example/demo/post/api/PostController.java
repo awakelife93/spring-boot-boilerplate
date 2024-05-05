@@ -104,10 +104,10 @@ public class PostController {
   )
   @GetMapping
   public ResponseEntity<List<GetPostResponse>> getPostList(Pageable pageable) {
-    final List<GetPostResponse> postResponses = getPostService.getPostList(
+    final List<GetPostResponse> listPostResponses = getPostService.getPostList(
       pageable
     );
-    return ResponseEntity.ok(postResponses);
+    return ResponseEntity.ok(listPostResponses);
   }
 
   @Operation(
@@ -147,11 +147,11 @@ public class PostController {
     @Valid GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   ) {
-    final List<GetPostResponse> postResponses = getPostService.getExcludeUsersPosts(
+    final List<GetPostResponse> listPostResponses = getPostService.getExcludeUsersPosts(
       getExcludeUsersPostsRequest,
       pageable
     );
-    return ResponseEntity.ok(postResponses);
+    return ResponseEntity.ok(listPostResponses);
   }
 
   @Operation(
@@ -188,8 +188,8 @@ public class PostController {
   public ResponseEntity<GetPostResponse> getPostById(
     @PathVariable("postId") Long postId
   ) {
-    final GetPostResponse postResponses = getPostService.getPostById(postId);
-    return ResponseEntity.ok(postResponses);
+    final GetPostResponse getPostResponse = getPostService.getPostById(postId);
+    return ResponseEntity.ok(getPostResponse);
   }
 
   @Operation(

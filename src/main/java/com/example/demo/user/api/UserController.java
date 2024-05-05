@@ -76,8 +76,8 @@ public class UserController {
   public ResponseEntity<GetUserResponse> getUserById(
     @PathVariable("userId") Long userId
   ) {
-    final GetUserResponse userResponse = getUserService.getUserById(userId);
-    return ResponseEntity.ok(userResponse);
+    final GetUserResponse getUserResponse = getUserService.getUserById(userId);
+    return ResponseEntity.ok(getUserResponse);
   }
 
   @Operation(
@@ -100,10 +100,10 @@ public class UserController {
   )
   @GetMapping
   public ResponseEntity<List<GetUserResponse>> getUserList(Pageable pageable) {
-    final List<GetUserResponse> usersResponse = getUserService.getUserList(
+    final List<GetUserResponse> listUserResponses = getUserService.getUserList(
       pageable
     );
-    return ResponseEntity.ok(usersResponse);
+    return ResponseEntity.ok(listUserResponses);
   }
 
   @Operation(
@@ -188,11 +188,11 @@ public class UserController {
     @RequestBody @Valid UpdateUserRequest updateUserRequest,
     @PathVariable("userId") Long userId
   ) {
-    final UpdateUserResponse usersResponse = changeUserService.updateUser(
+    final UpdateUserResponse updateUserResponse = changeUserService.updateUser(
       userId,
       updateUserRequest
     );
-    return ResponseEntity.ok(usersResponse);
+    return ResponseEntity.ok(updateUserResponse);
   }
 
   @Operation(
@@ -207,6 +207,13 @@ public class UserController {
         description = "OK",
         content = @Content(
           schema = @Schema(implementation = UpdateMeResponse.class)
+        )
+      ),
+      @ApiResponse(
+        responseCode = "400",
+        description = "Request Body Valid Error",
+        content = @Content(
+          schema = @Schema(implementation = ErrorResponse.class)
         )
       ),
       @ApiResponse(
@@ -230,11 +237,11 @@ public class UserController {
     @RequestBody @Valid UpdateUserRequest updateUserRequest,
     @CurrentUser SecurityUserItem securityUserItem
   ) {
-    final UpdateMeResponse usersResponse = changeUserService.updateMe(
+    final UpdateMeResponse updateMeResponse = changeUserService.updateMe(
       securityUserItem.getUserId(),
       updateUserRequest
     );
-    return ResponseEntity.ok(usersResponse);
+    return ResponseEntity.ok(updateMeResponse);
   }
 
   @Operation(
