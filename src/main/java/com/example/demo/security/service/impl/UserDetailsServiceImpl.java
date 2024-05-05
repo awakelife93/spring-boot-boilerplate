@@ -4,10 +4,10 @@ import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.UserAdapter;
 import com.example.demo.user.application.UserService;
 import com.example.demo.user.entity.User;
+import com.example.demo.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String userId)
-    throws UsernameNotFoundException {
+    throws UserNotFoundException {
     User user = userService.validateReturnUser(Long.valueOf(userId));
 
     return new UserAdapter(SecurityUserItem.of(user));
