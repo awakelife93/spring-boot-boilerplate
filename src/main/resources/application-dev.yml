@@ -2,6 +2,12 @@ spring:
   config:
     activate:
       on-profile: dev
+  batch:
+    job:
+      enabled: false
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: never
   jpa:
     generate-ddl: false
     properties:
