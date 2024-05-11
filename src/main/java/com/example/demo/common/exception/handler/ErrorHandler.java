@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -22,46 +22,65 @@ public class ErrorHandler {
 
   @ExceptionHandler(NotFoundException.class)
   protected ResponseEntity<ErrorResponse> handleNotFoundException(
-    NotFoundException exception
+    NotFoundException exception,
+    HttpServletRequest httpServletRequest
   ) {
     ErrorResponse response = ErrorResponse.of(
       exception.getCode().value(),
       exception.getMessage()
     );
 
-    log.error("handleNotFoundException Error", exception);
+    log.error(
+      "handleNotFoundException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      exception.getMessage()
+    );
     return ResponseEntity.status(exception.getCode().value()).body(response);
   }
 
   @ExceptionHandler(UnAuthorizedException.class)
   protected ResponseEntity<ErrorResponse> handleUnAuthorizedException(
-    UnAuthorizedException exception
+    UnAuthorizedException exception,
+    HttpServletRequest httpServletRequest
   ) {
     ErrorResponse response = ErrorResponse.of(
       exception.getCode().value(),
       exception.getMessage()
     );
 
-    log.error("handleUnAuthorizedException Error", exception);
+    log.error(
+      "handleUnAuthorizedException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      exception.getMessage()
+    );
     return ResponseEntity.status(exception.getCode().value()).body(response);
   }
 
   @ExceptionHandler(AlreadyExistException.class)
   protected ResponseEntity<ErrorResponse> handleAlreadyExistException(
-    AlreadyExistException exception
+    AlreadyExistException exception,
+    HttpServletRequest httpServletRequest
   ) {
     ErrorResponse response = ErrorResponse.of(
       exception.getCode().value(),
       exception.getMessage()
     );
 
-    log.error("handleAlreadyExistException Error", exception);
+    log.error(
+      "handleAlreadyExistException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      exception.getMessage()
+    );
     return ResponseEntity.status(exception.getCode().value()).body(response);
   }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ExceptionHandler(BindException.class)
   protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
-    MethodArgumentNotValidException exception
+    BindException exception,
+    HttpServletRequest httpServletRequest
   ) {
     BindingResult bindingResult = exception.getBindingResult();
     StringBuilder stringBuilder = new StringBuilder();
@@ -77,7 +96,12 @@ public class ErrorHandler {
       exception.getFieldErrors()
     );
 
-    log.error("handleMethodArgumentNotValidException Error", exception);
+    log.error(
+      "handleMethodArgumentNotValidException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      String.valueOf(stringBuilder)
+    );
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
   }
 
@@ -102,7 +126,8 @@ public class ErrorHandler {
 
   @ExceptionHandler(NoHandlerFoundException.class)
   protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(
-    NoHandlerFoundException exception
+    NoHandlerFoundException exception,
+    HttpServletRequest httpServletRequest
   ) {
     ErrorResponse response = ErrorResponse.of(
       HttpStatus.NOT_FOUND.value(),
@@ -110,18 +135,31 @@ public class ErrorHandler {
       exception.getRequestHeaders()
     );
 
-    log.error("handleNoHandlerFoundException Error", exception);
+    log.error(
+      "handleNoHandlerFoundException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      exception.getMessage()
+    );
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
   }
 
   @ExceptionHandler(Exception.class)
-  protected ResponseEntity<ErrorResponse> handleException(Exception exception) {
+  protected ResponseEntity<ErrorResponse> handleException(
+    Exception exception,
+    HttpServletRequest httpServletRequest
+  ) {
     final ErrorResponse response = ErrorResponse.of(
       HttpStatus.INTERNAL_SERVER_ERROR.value(),
       exception.getMessage()
     );
 
-    log.error("handleException Error", exception);
+    log.error(
+      "handleException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      exception.getMessage()
+    );
     return ResponseEntity
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
       .body(response);
