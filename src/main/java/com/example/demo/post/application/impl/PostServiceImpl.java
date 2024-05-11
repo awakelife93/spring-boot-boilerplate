@@ -17,7 +17,7 @@ public class PostServiceImpl implements PostService {
   public Post validateReturnPost(Long postId) {
     final Post post = postRepository
       .findOneById(postId)
-      .orElseThrow(() -> new PostNotFoundException());
+      .orElseThrow(() -> new PostNotFoundException(postId));
 
     return post;
   }

@@ -177,7 +177,7 @@ public class PostController {
       ),
       @ApiResponse(
         responseCode = "404",
-        description = "Post Not Found",
+        description = "Post Not Found postId = {postId}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
@@ -222,7 +222,7 @@ public class PostController {
       ),
       @ApiResponse(
         responseCode = "404",
-        description = "Post Not Found",
+        description = "Post Not Found postId = {postId}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )

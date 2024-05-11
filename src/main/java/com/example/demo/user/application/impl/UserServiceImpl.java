@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
   public User validateReturnUser(Long userId) {
     final User user = userRepository
       .findOneById(userId)
-      .orElseThrow(() -> new UserNotFoundException());
+      .orElseThrow(() -> new UserNotFoundException(userId));
 
     return user;
   }
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
   public User validateAuthReturnUser(SignInRequest signInRequest) {
     final User user = userRepository
       .findOneByEmail(signInRequest.getEmail())
-      .orElseThrow(() -> new UserNotFoundException());
+      .orElseThrow(() -> new UserNotFoundException(signInRequest.getEmail()));
 
     boolean isValidate = user.validatePassword(
       signInRequest.getPassword(),
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     );
 
     if (!isValidate) {
-      throw new UserUnAuthorizedException();
+      throw new UserUnAuthorizedException(signInRequest.getEmail());
     }
 
     return user;

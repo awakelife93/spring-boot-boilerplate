@@ -23,7 +23,7 @@ public class GetPostServiceImpl implements GetPostService {
   public GetPostResponse getPostById(Long postId) {
     final Post post = postRepository
       .findOneById(postId)
-      .orElseThrow(() -> new PostNotFoundException());
+      .orElseThrow(() -> new PostNotFoundException(postId));
 
     return GetPostResponse.of(post);
   }

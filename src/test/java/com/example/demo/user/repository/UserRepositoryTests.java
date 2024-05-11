@@ -104,7 +104,7 @@ public class UserRepositoryTests {
 
     User afterFindUser = userRepository
       .findOneById(beforeFindUser.getId())
-      .orElse(null);
+      .get();
 
     assertEquals(beforeFindUser.getId(), afterFindUser.getId());
     assertEquals(beforeFindUser.getEmail(), afterFindUser.getEmail());
@@ -119,7 +119,7 @@ public class UserRepositoryTests {
 
     User afterFindUser = userRepository
       .findOneByEmail(beforeFindUser.getEmail())
-      .orElse(null);
+      .get();
 
     assertEquals(beforeFindUser.getId(), afterFindUser.getId());
     assertEquals(beforeFindUser.getEmail(), afterFindUser.getEmail());

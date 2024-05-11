@@ -110,7 +110,7 @@ public class ChangeUserServiceTests {
     @DisplayName("Not found user")
     public void should_AssertUserNotFoundException_when_GivenUserIdAndUpdateUserRequest() {
       when(userServiceImpl.validateReturnUser(anyLong()))
-        .thenThrow(new UserNotFoundException());
+        .thenThrow(new UserNotFoundException(user.getId()));
 
       assertThrows(
         UserNotFoundException.class,

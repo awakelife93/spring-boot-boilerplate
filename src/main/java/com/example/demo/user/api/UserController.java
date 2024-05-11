@@ -65,7 +65,7 @@ public class UserController {
       ),
       @ApiResponse(
         responseCode = "404",
-        description = "User Not Found",
+        description = "User Not Found userId = {userId} or email = {email}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
@@ -129,7 +129,7 @@ public class UserController {
       ),
       @ApiResponse(
         responseCode = "409",
-        description = "Already User Exist",
+        description = "Already User Exist userId = {userId} or email = {email}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
@@ -176,7 +176,7 @@ public class UserController {
       ),
       @ApiResponse(
         responseCode = "404",
-        description = "User Not Found",
+        description = "User Not Found userId = {userId} or email = {email}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
@@ -225,7 +225,7 @@ public class UserController {
       ),
       @ApiResponse(
         responseCode = "404",
-        description = "User Not Found",
+        description = "User Not Found userId = {userId} or email = {email}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )

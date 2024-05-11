@@ -38,7 +38,7 @@ public class ChangeUserServiceImpl implements ChangeUserService {
     );
 
     if (!Objects.isNull(confirmUser)) {
-      throw new AlreadyUserExistException();
+      throw new AlreadyUserExistException(confirmUser.getEmail());
     }
 
     final User user = User

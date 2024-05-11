@@ -112,7 +112,9 @@ public class UserIntegrationControllerTests extends SecurityItem {
     @WithMockCustomUser
     public void should_ExpectErrorResponseToUserNotFoundException_when_GivenUserIdAndUserIsAuthenticated()
       throws Exception {
-      UserNotFoundException userNotFoundException = new UserNotFoundException();
+      UserNotFoundException userNotFoundException = new UserNotFoundException(
+        user.getId()
+      );
 
       when(getUserServiceImpl.getUserById(anyLong()))
         .thenThrow(userNotFoundException);
@@ -272,7 +274,9 @@ public class UserIntegrationControllerTests extends SecurityItem {
     @WithMockCustomUser
     public void should_ExpectErrorResponseToAlreadyUserExistException_when_GivenCreateUserRequest()
       throws Exception {
-      AlreadyUserExistException alreadyUserExistException = new AlreadyUserExistException();
+      AlreadyUserExistException alreadyUserExistException = new AlreadyUserExistException(
+        createUserRequest.getEmail()
+      );
 
       when(changeUserServiceImpl.createUser(any(CreateUserRequest.class)))
         .thenThrow(alreadyUserExistException);
@@ -384,7 +388,9 @@ public class UserIntegrationControllerTests extends SecurityItem {
     @WithMockCustomUser
     public void should_ExpectErrorResponseToUserNotFoundException_when_GivenUserIdAndUpdateUserRequestAndUserIsAuthenticated()
       throws Exception {
-      UserNotFoundException userNotFoundException = new UserNotFoundException();
+      UserNotFoundException userNotFoundException = new UserNotFoundException(
+        user.getId()
+      );
 
       when(
         changeUserServiceImpl.updateUser(
@@ -498,7 +504,9 @@ public class UserIntegrationControllerTests extends SecurityItem {
     @WithMockCustomUser
     public void should_ExpectErrorResponseToUserNotFoundException_when_GivenSecurityUserItemAndUpdateUserRequestAndUserIsAuthenticated()
       throws Exception {
-      UserNotFoundException userNotFoundException = new UserNotFoundException();
+      UserNotFoundException userNotFoundException = new UserNotFoundException(
+        user.getId()
+      );
 
       when(
         changeUserServiceImpl.updateMe(anyLong(), any(UpdateUserRequest.class))

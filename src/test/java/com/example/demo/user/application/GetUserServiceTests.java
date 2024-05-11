@@ -71,7 +71,7 @@ public class GetUserServiceTests {
     @DisplayName("Not found user")
     public void should_AssertUserNotFoundException_when_GivenUserId() {
       when(userRepository.findOneById(anyLong()))
-        .thenThrow(new UserNotFoundException());
+        .thenThrow(new UserNotFoundException(user.getId()));
 
       assertThrows(
         UserNotFoundException.class,

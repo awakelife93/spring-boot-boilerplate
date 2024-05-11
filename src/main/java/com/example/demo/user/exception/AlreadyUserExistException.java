@@ -5,7 +5,17 @@ import org.springframework.http.HttpStatus;
 
 public class AlreadyUserExistException extends AlreadyExistException {
 
-  public AlreadyUserExistException() {
-    super(HttpStatus.CONFLICT, "Already User Exist");
+  public AlreadyUserExistException(Long userId) {
+    super(
+      HttpStatus.CONFLICT,
+      String.format("User Not Found userId = %s", userId)
+    );
+  }
+
+  public AlreadyUserExistException(String email) {
+    super(
+      HttpStatus.CONFLICT,
+      String.format("User Not Found email = %s", email)
+    );
   }
 }

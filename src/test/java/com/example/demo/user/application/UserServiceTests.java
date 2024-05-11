@@ -71,69 +71,69 @@ public class UserServiceTests {
         () -> userServiceImpl.validateReturnUser(user.getId())
       );
     }
+  }
 
-    @Nested
-    @DisplayName("Validate and authenticated Return User Entity")
-    class validateAuthReturnUserTest {
+  @Nested
+  @DisplayName("Validate and authenticated Return User Entity")
+  class validateAuthReturnUserTest {
 
-      SignInRequest signInRequest = Instancio.create(SignInRequest.class);
+    SignInRequest signInRequest = Instancio.create(SignInRequest.class);
 
-      @Test
-      @DisplayName("Success validate and authenticated get user entity")
-      public void should_AssertUserEntity_when_GivenSignInRequest() {
-        when(userRepository.findOneByEmail(anyString()))
-          .thenReturn(Optional.of(user));
+    @Test
+    @DisplayName("Success validate and authenticated get user entity")
+    public void should_AssertUserEntity_when_GivenSignInRequest() {
+      when(userRepository.findOneByEmail(anyString()))
+        .thenReturn(Optional.of(user));
 
-        when(
-          user.validatePassword(
-            signInRequest.getPassword(),
-            bCryptPasswordEncoder
-          )
+      when(
+        user.validatePassword(
+          signInRequest.getPassword(),
+          bCryptPasswordEncoder
         )
-          .thenReturn(true);
+      )
+        .thenReturn(true);
 
-        User validateAuthUser = userServiceImpl.validateAuthReturnUser(
-          signInRequest
-        );
+      User validateAuthUser = userServiceImpl.validateAuthReturnUser(
+        signInRequest
+      );
 
-        assertNotNull(validateAuthUser);
-        assertEquals(user.getId(), validateAuthUser.getId());
-        assertEquals(user.getEmail(), validateAuthUser.getEmail());
-        assertEquals(user.getName(), validateAuthUser.getName());
-        assertEquals(user.getRole(), validateAuthUser.getRole());
-      }
+      assertNotNull(validateAuthUser);
+      assertEquals(user.getId(), validateAuthUser.getId());
+      assertEquals(user.getEmail(), validateAuthUser.getEmail());
+      assertEquals(user.getName(), validateAuthUser.getName());
+      assertEquals(user.getRole(), validateAuthUser.getRole());
+    }
 
-      @Test
-      @DisplayName("validate and authenticated user is not found exception")
-      public void should_AssertUserNotFoundException_when_GivenSignInRequest() {
-        when(userRepository.findOneByEmail(anyString()))
-          .thenReturn(Optional.empty());
+    @Test
+    @DisplayName("validate and authenticated user is not found exception")
+    public void should_AssertUserNotFoundException_when_GivenSignInRequest() {
+      when(userRepository.findOneByEmail(anyString()))
+        .thenReturn(Optional.empty());
 
-        assertThrows(
-          UserNotFoundException.class,
-          () -> userServiceImpl.validateAuthReturnUser(signInRequest)
-        );
-      }
+      assertThrows(
+        UserNotFoundException.class,
+        () -> userServiceImpl.validateAuthReturnUser(signInRequest)
+      );
+    }
 
-      @Test
-      @DisplayName("validate and authenticated user is unauthorized exception")
-      public void should_AssertUserUnAuthorizedException_when_GivenSignInRequest() {
-        when(userRepository.findOneByEmail(anyString()))
-          .thenReturn(Optional.of(user));
+    @Test
+    @DisplayName("validate and authenticated user is unauthorized exception")
+    public void should_AssertUserUnAuthorizedException_when_GivenSignInRequest() {
+      when(userRepository.findOneByEmail(anyString()))
+        .thenReturn(Optional.of(user));
 
-        when(
-          user.validatePassword(
-            signInRequest.getPassword(),
-            bCryptPasswordEncoder
-          )
+      when(
+        user.validatePassword(
+          signInRequest.getPassword(),
+          bCryptPasswordEncoder
         )
-          .thenReturn(false);
+      )
+        .thenReturn(false);
 
-        assertThrows(
-          UserUnAuthorizedException.class,
-          () -> userServiceImpl.validateAuthReturnUser(signInRequest)
-        );
-      }
+      assertThrows(
+        UserUnAuthorizedException.class,
+        () -> userServiceImpl.validateAuthReturnUser(signInRequest)
+      );
     }
   }
 }

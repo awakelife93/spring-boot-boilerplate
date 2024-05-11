@@ -5,7 +5,17 @@ import org.springframework.http.HttpStatus;
 
 public class UserUnAuthorizedException extends UnAuthorizedException {
 
-  public UserUnAuthorizedException() {
-    super(HttpStatus.UNAUTHORIZED, "User UnAuthorized");
+  public UserUnAuthorizedException(Long userId) {
+    super(
+      HttpStatus.UNAUTHORIZED,
+      String.format("User Not Found userId = %s", userId)
+    );
+  }
+
+  public UserUnAuthorizedException(String email) {
+    super(
+      HttpStatus.UNAUTHORIZED,
+      String.format("User Not Found email = %s", email)
+    );
   }
 }

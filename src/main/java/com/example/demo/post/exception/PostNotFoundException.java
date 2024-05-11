@@ -5,7 +5,10 @@ import org.springframework.http.HttpStatus;
 
 public class PostNotFoundException extends NotFoundException {
 
-  public PostNotFoundException() {
-    super(HttpStatus.NOT_FOUND, "Post Not Found");
+  public PostNotFoundException(Long postId) {
+    super(
+      HttpStatus.NOT_FOUND,
+      String.format("Post Not Found postId = %s", postId)
+    );
   }
 }

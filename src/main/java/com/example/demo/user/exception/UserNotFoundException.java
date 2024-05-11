@@ -5,7 +5,17 @@ import org.springframework.http.HttpStatus;
 
 public class UserNotFoundException extends NotFoundException {
 
-  public UserNotFoundException() {
-    super(HttpStatus.NOT_FOUND, "User Not Found");
+  public UserNotFoundException(Long userId) {
+    super(
+      HttpStatus.NOT_FOUND,
+      String.format("User Not Found userId = %s", userId)
+    );
+  }
+
+  public UserNotFoundException(String email) {
+    super(
+      HttpStatus.NOT_FOUND,
+      String.format("User Not Found email = %s", email)
+    );
   }
 }

@@ -53,14 +53,14 @@ public class AuthController {
       ),
       @ApiResponse(
         responseCode = "401",
-        description = "User UnAuthorized",
+        description = "User UnAuthorized userId = {userId} or email = {email}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
       ),
       @ApiResponse(
         responseCode = "404",
-        description = "User Not Found",
+        description = "User Not Found userId = {userId} or email = {email}",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )

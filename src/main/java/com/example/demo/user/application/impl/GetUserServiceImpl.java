@@ -23,7 +23,7 @@ public class GetUserServiceImpl implements GetUserService {
   public GetUserResponse getUserById(Long userId) {
     final User user = userRepository
       .findOneById(userId)
-      .orElseThrow(() -> new UserNotFoundException());
+      .orElseThrow(() -> new UserNotFoundException(userId));
 
     return GetUserResponse.of(user);
   }
