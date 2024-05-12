@@ -1,4 +1,4 @@
-package com.example.demo.common.constant;
+package com.example.demo.user.constant;
 
 public enum UserRole {
   USER,

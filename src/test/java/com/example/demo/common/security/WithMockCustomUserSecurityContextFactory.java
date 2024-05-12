@@ -1,8 +1,8 @@
 package com.example.demo.common.security;
 
-import com.example.demo.common.constant.UserRole;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.UserAdapter;
+import com.example.demo.user.constant.UserRole;
 import com.example.demo.user.entity.User;
 import org.instancio.Instancio;
 import org.instancio.Select;

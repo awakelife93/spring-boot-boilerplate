@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.example.demo.common.config.JpaAuditConfig;
 import com.example.demo.common.config.QueryDslConfig;
-import com.example.demo.common.constant.UserRole;
+import com.example.demo.user.constant.UserRole;
 import com.example.demo.user.dto.serve.request.UpdateUserRequest;
 import com.example.demo.user.entity.User;
 import org.instancio.Instancio;

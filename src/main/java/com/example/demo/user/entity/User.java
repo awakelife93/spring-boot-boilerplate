@@ -1,8 +1,8 @@
 package com.example.demo.user.entity;
 
-import com.example.demo.common.constant.UserRole;
 import com.example.demo.common.entity.BaseSoftDeleteEntity;
 import com.example.demo.post.entity.Post;
+import com.example.demo.user.constant.UserRole;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

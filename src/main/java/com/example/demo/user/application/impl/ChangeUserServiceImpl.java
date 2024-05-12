@@ -1,10 +1,10 @@
 package com.example.demo.user.application.impl;
 
-import com.example.demo.common.constant.UserRole;
 import com.example.demo.security.service.TokenService;
 import com.example.demo.user.application.ChangeUserService;
 import com.example.demo.user.application.GetUserService;
 import com.example.demo.user.application.UserService;
+import com.example.demo.user.constant.UserRole;
 import com.example.demo.user.dto.serve.request.CreateUserRequest;
 import com.example.demo.user.dto.serve.request.UpdateUserRequest;
 import com.example.demo.user.dto.serve.response.CreateUserResponse;

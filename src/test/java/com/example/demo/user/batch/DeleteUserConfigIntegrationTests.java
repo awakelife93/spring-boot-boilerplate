@@ -4,10 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.demo.common.config.TestBatchConfig;
-import com.example.demo.common.constant.UserRole;
 import com.example.demo.user.batch.config.DeleteUserConfig;
 import com.example.demo.user.batch.mapper.DeleteUserItem;
 import com.example.demo.user.batch.mapper.DeleteUserItemRowMapper;
+import com.example.demo.user.constant.UserRole;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;

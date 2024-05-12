@@ -1,6 +1,6 @@
 package com.example.demo.user.dto.serve.response;
 
-import com.example.demo.common.constant.UserRole;
+import com.example.demo.user.constant.UserRole;
 import com.example.demo.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;

@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.common.constant.UserRole;
+import com.example.demo.user.constant.UserRole;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Getter;
