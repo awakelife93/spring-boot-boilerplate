@@ -64,6 +64,7 @@ public class ChangeUserServiceImpl implements ChangeUserService {
     final User user = userService
       .validateReturnUser(userId)
       .update(updateUserRequest.getName(), updateUserRequest.getRole());
+
     return UpdateUserResponse.of(user);
   }
 
