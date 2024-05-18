@@ -15,7 +15,6 @@ import com.example.demo.common.security.SecurityItem;
 import com.example.demo.common.security.WithMockCustomUser;
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.exception.RefreshTokenNotFoundException;
-import com.example.demo.security.service.TokenService;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.exception.UserNotFoundException;
 import com.example.demo.user.exception.UserUnAuthorizedException;
@@ -45,9 +44,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebMvcTest(AuthController.class)
 @ExtendWith(MockitoExtension.class)
 public class AuthIntegrationControllerTests extends SecurityItem {
-
-  @MockBean
-  private TokenService tokenService;
 
   @MockBean
   private AuthService authService;
