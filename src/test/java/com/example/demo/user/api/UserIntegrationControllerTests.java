@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.demo.common.security.SecurityItem;
 import com.example.demo.common.security.WithMockCustomUser;
-import com.example.demo.security.service.TokenService;
 import com.example.demo.user.application.impl.ChangeUserServiceImpl;
 import com.example.demo.user.application.impl.GetUserServiceImpl;
 import com.example.demo.user.dto.serve.request.CreateUserRequest;
@@ -48,9 +47,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebMvcTest(UserController.class)
 @ExtendWith(MockitoExtension.class)
 public class UserIntegrationControllerTests extends SecurityItem {
-
-  @MockBean
-  private TokenService tokenService;
 
   @MockBean
   private GetUserServiceImpl getUserServiceImpl;
