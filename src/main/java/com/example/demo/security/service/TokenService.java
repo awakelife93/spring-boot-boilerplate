@@ -2,16 +2,20 @@ package com.example.demo.security.service;
 
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.component.JWTProvider;
-import com.example.demo.security.exception.TokenNotFoundException;
+import com.example.demo.security.exception.RefreshTokenNotFoundException;
 import com.example.demo.user.entity.User;
 import com.example.demo.utils.RedisUtils;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class TokenService {
+
+  @Value("${jwt.refresh-expire}")
+  private long refreshExpireTime;
 
   private final JWTProvider jwtProvider;
   private final RedisUtils redisUtils;
@@ -21,7 +25,7 @@ public class TokenService {
     String refreshToken = redisUtils.get(redisKey);
 
     if (Objects.isNull(refreshToken)) {
-      throw new TokenNotFoundException("Refresh Token");
+      throw new RefreshTokenNotFoundException(userId);
     }
 
     return refreshToken;
@@ -32,12 +36,17 @@ public class TokenService {
     redisUtils.delete(redisKey);
   }
 
-  public String createAccessToken(User user) {
-    return jwtProvider.createAccessToken(SecurityUserItem.of(user));
+  public void createRefreshToken(User user) {
+    String redisKey = redisUtils.generateSessionKey(user.getId());
+    redisUtils.set(
+      redisKey,
+      jwtProvider.createRefreshToken(SecurityUserItem.of(user)),
+      refreshExpireTime
+    );
   }
 
-  public String createRefreshToken(User user) {
-    return jwtProvider.createRefreshToken(SecurityUserItem.of(user));
+  public String createAccessToken(User user) {
+    return jwtProvider.createAccessToken(SecurityUserItem.of(user));
   }
 
   public String refreshAccessToken(SecurityUserItem securityUserItem) {
@@ -48,8 +57,6 @@ public class TokenService {
   }
 
   public String createFullTokens(User user) {
-    // Remove existing refresh tokens in advance
-    deleteRefreshToken(user.getId());
     createRefreshToken(user);
     return createAccessToken(user);
   }
