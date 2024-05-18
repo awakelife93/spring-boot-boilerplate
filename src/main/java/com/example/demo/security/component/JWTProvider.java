@@ -4,12 +4,8 @@ import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.UserAdapter;
 import com.example.demo.security.service.impl.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Objects;
@@ -69,17 +65,8 @@ public class JWTProvider {
     SecurityUserItem securityUserItem,
     String refreshToken
   ) {
-    Claims claims = generateClaims(refreshToken);
-    long userId = Long.valueOf(claims.getSubject());
-
-    if (
-      securityUserItem.getUserId() == userId &&
-      claims.getExpiration().before(new Date(System.currentTimeMillis()))
-    ) {
-      return createAccessToken(securityUserItem);
-    } else {
-      throw new ExpiredJwtException(null, claims, "");
-    }
+    generateClaims(refreshToken);
+    return createAccessToken(securityUserItem);
   }
 
   public boolean validateToken(String token) {
@@ -110,8 +97,7 @@ public class JWTProvider {
     );
   }
 
-  private Claims generateClaims(String token)
-    throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException {
+  private Claims generateClaims(String token) {
     return Jwts
       .parser()
       .setSigningKey(secretKey)
