@@ -15,8 +15,9 @@ public class DeleteUserItemRowMapper implements RowMapper<DeleteUserItem> {
       resultSet.getString("email"),
       resultSet.getString("name"),
       resultSet.getString("role"),
-      ConvertUtils.convertStringToLocalDateTime(
-        resultSet.getString("deleted_dt")
+      ConvertUtils.convertStringToLocalDateTimeFormat(
+        resultSet.getString("deleted_dt"),
+        "yyyy-MM-dd HH:mm:ss"
       )
     );
 

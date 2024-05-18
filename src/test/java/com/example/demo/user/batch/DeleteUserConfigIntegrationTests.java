@@ -62,7 +62,7 @@ public class DeleteUserConfigIntegrationTests {
   @DisplayName("DeleteUserConfig batch Integration Test")
   public void should_AssertBatchStatusAndExitStatusAndListOfDeletedUser_when_GivenLocalDateTimeIsNowTime()
     throws Exception {
-    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now().withNano(0);
 
     jdbcTemplate.update(
       "insert into \"user\" (created_dt, updated_dt, deleted_dt, email, name, password, role) values (?, ?, ?, ?, ?, ?, ?)",
