@@ -4,6 +4,7 @@ import com.example.demo.common.exception.AlreadyExistException;
 import com.example.demo.common.exception.NotFoundException;
 import com.example.demo.common.exception.UnAuthorizedException;
 import com.example.demo.common.response.ErrorResponse;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,25 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Slf4j
 @RestControllerAdvice
 public class ErrorHandler {
+
+  @ExceptionHandler(ExpiredJwtException.class)
+  protected ResponseEntity<ErrorResponse> handleExpiredJwtException(
+    ExpiredJwtException exception,
+    HttpServletRequest httpServletRequest
+  ) {
+    ErrorResponse response = ErrorResponse.of(
+      HttpStatus.UNAUTHORIZED.value(),
+      exception.getMessage()
+    );
+
+    log.error(
+      "handleExpiredJwtException Error - {} {} {}",
+      httpServletRequest.getMethod(),
+      httpServletRequest.getRequestURI(),
+      exception.getMessage()
+    );
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+  }
 
   @ExceptionHandler(NotFoundException.class)
   protected ResponseEntity<ErrorResponse> handleNotFoundException(
