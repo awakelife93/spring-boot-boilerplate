@@ -7,12 +7,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConvertUtils {
 
-  public static LocalDateTime convertStringToLocalDateTime(String time) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-      "yyyy-MM-dd HH:mm:ss.SSSSSS"
-    );
+  public static LocalDateTime convertStringToLocalDateTimeFormat(
+    String time,
+    String pattern
+  ) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
     LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
 
     return localDateTime;
+  }
+
+  public static String convertLocalDateTimeToStringFormat(
+    LocalDateTime time,
+    String pattern
+  ) {
+    return time.format(DateTimeFormatter.ofPattern(pattern));
   }
 }
