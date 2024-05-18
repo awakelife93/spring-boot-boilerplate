@@ -116,7 +116,9 @@ public class AuthController {
       ),
       @ApiResponse(
         responseCode = "401",
-        description = "Full authentication is required to access this resource",
+        description = "1. Full authentication is required to access this resource" +
+        "\n 2. Refresh Token Not Found userId = {userId}" +
+        "\n 3. Refresh Token is Expired",
         content = @Content(
           schema = @Schema(implementation = ErrorResponse.class)
         )
