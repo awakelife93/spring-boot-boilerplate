@@ -1,21 +1,16 @@
-package com.example.demo.security.service;
+package com.example.demo.security.component.provider;
 
 import com.example.demo.security.SecurityUserItem;
-import com.example.demo.security.component.JWTProvider;
 import com.example.demo.security.exception.RefreshTokenNotFoundException;
 import com.example.demo.user.entity.User;
 import com.example.demo.utils.RedisUtils;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class TokenService {
-
-  @Value("${jwt.refresh-expire}")
-  private long refreshExpireTime;
+public class TokenProvider {
 
   private final JWTProvider jwtProvider;
   private final RedisUtils redisUtils;
@@ -41,7 +36,7 @@ public class TokenService {
     redisUtils.set(
       redisKey,
       jwtProvider.createRefreshToken(SecurityUserItem.of(user)),
-      refreshExpireTime
+      jwtProvider.getRefreshExpireTime()
     );
   }
 

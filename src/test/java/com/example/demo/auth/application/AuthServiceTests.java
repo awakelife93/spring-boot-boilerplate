@@ -13,8 +13,8 @@ import com.example.demo.auth.dto.serve.request.SignInRequest;
 import com.example.demo.auth.dto.serve.response.RefreshAccessTokenResponse;
 import com.example.demo.auth.dto.serve.response.SignInResponse;
 import com.example.demo.security.SecurityUserItem;
+import com.example.demo.security.component.provider.TokenProvider;
 import com.example.demo.security.exception.RefreshTokenNotFoundException;
-import com.example.demo.security.service.TokenService;
 import com.example.demo.user.application.impl.UserServiceImpl;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.exception.UserNotFoundException;
@@ -39,7 +39,7 @@ import org.springframework.test.context.ActiveProfiles;
 public class AuthServiceTests {
 
   @Mock
-  private TokenService tokenService;
+  private TokenProvider tokenProvider;
 
   @Mock
   private UserServiceImpl userServiceImpl;
@@ -64,7 +64,7 @@ public class AuthServiceTests {
     public void should_AssertSignInResponse_when_GivenSignInRequest() {
       when(userServiceImpl.validateAuthReturnUser(any(SignInRequest.class)))
         .thenReturn(user);
-      when(tokenService.createFullTokens(any(User.class)))
+      when(tokenProvider.createFullTokens(any(User.class)))
         .thenReturn(defaultAccessToken);
 
       SignInResponse signInResponse = authService.signIn(signInRequest);
@@ -109,7 +109,7 @@ public class AuthServiceTests {
     public void should_VerifyCallDeleteRefreshToken_when_GivenUserId() {
       authService.signOut(user.getId());
 
-      verify(tokenService, times(1)).deleteRefreshToken(anyLong());
+      verify(tokenProvider, times(1)).deleteRefreshToken(anyLong());
     }
   }
 
@@ -124,7 +124,7 @@ public class AuthServiceTests {
     @Test
     @DisplayName("Success refresh access token")
     public void should_AssertRefreshAccessTokenResponse_when_GivenSecurityUserItem() {
-      when(tokenService.refreshAccessToken(any(SecurityUserItem.class)))
+      when(tokenProvider.refreshAccessToken(any(SecurityUserItem.class)))
         .thenReturn(defaultAccessToken);
 
       RefreshAccessTokenResponse refreshAccessTokenResponse = authService.refreshAccessToken(
@@ -143,7 +143,7 @@ public class AuthServiceTests {
     public void should_AssertExpiredJwtException_when_GivenSecurityUserItem() {
       Claims claims = Instancio.create(Claims.class);
 
-      when(tokenService.refreshAccessToken(any(SecurityUserItem.class)))
+      when(tokenProvider.refreshAccessToken(any(SecurityUserItem.class)))
         .thenThrow(
           new ExpiredJwtException(
             null,
@@ -161,7 +161,7 @@ public class AuthServiceTests {
     @Test
     @DisplayName("Refresh token is not found")
     public void should_AssertRefreshTokenNotFoundException_when_GivenSecurityUserItem() {
-      when(tokenService.refreshAccessToken(any(SecurityUserItem.class)))
+      when(tokenProvider.refreshAccessToken(any(SecurityUserItem.class)))
         .thenThrow(new RefreshTokenNotFoundException(user.getId()));
 
       assertThrows(

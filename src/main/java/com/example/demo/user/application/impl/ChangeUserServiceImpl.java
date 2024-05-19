@@ -1,6 +1,6 @@
 package com.example.demo.user.application.impl;
 
-import com.example.demo.security.service.TokenService;
+import com.example.demo.security.component.provider.TokenProvider;
 import com.example.demo.user.application.ChangeUserService;
 import com.example.demo.user.application.GetUserService;
 import com.example.demo.user.application.UserService;
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ChangeUserServiceImpl implements ChangeUserService {
 
-  private final TokenService tokenService;
+  private final TokenProvider tokenProvider;
   private final UserService userService;
   private final GetUserService getUserService;
   private final UserRepository userRepository;
@@ -52,7 +52,7 @@ public class ChangeUserServiceImpl implements ChangeUserService {
 
     return CreateUserResponse.of(
       userRepository.save(user),
-      tokenService.createFullTokens(user)
+      tokenProvider.createFullTokens(user)
     );
   }
 
@@ -77,12 +77,12 @@ public class ChangeUserServiceImpl implements ChangeUserService {
       .validateReturnUser(userId)
       .update(updateUserRequest.getName(), updateUserRequest.getRole());
 
-    return UpdateMeResponse.of(user, tokenService.createFullTokens(user));
+    return UpdateMeResponse.of(user, tokenProvider.createFullTokens(user));
   }
 
   @Override
   public void deleteUser(Long userId) {
-    tokenService.deleteRefreshToken(userId);
+    tokenProvider.deleteRefreshToken(userId);
     userRepository.deleteById(userId);
   }
 }

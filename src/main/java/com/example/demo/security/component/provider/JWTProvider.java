@@ -1,4 +1,4 @@
-package com.example.demo.security.component;
+package com.example.demo.security.component.provider;
 
 import com.example.demo.security.SecurityUserItem;
 import com.example.demo.security.UserAdapter;
@@ -9,25 +9,27 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Objects;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 
+@Getter
 @Component
 @RequiredArgsConstructor
 public class JWTProvider {
 
   private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-  @Value("${jwt.secret}")
+  @Value("${auth.jwt.secret}")
   private String secretKey;
 
-  @Value("${jwt.access-expire}")
+  @Value("${auth.jwt.access-expire}")
   private long accessExpireTime;
 
-  @Value("${jwt.refresh-expire}")
+  @Value("${auth.jwt.refresh-expire}")
   private long refreshExpireTime;
 
   public String createAccessToken(SecurityUserItem securityUserItem) {

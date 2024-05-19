@@ -10,7 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.demo.security.service.TokenService;
+import com.example.demo.security.component.provider.TokenProvider;
 import com.example.demo.user.application.impl.ChangeUserServiceImpl;
 import com.example.demo.user.application.impl.GetUserServiceImpl;
 import com.example.demo.user.application.impl.UserServiceImpl;
@@ -48,7 +48,7 @@ public class ChangeUserServiceTests {
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Mock
-  private TokenService tokenService;
+  private TokenProvider tokenProvider;
 
   @Mock
   private GetUserServiceImpl getUserServiceImpl;
@@ -78,7 +78,7 @@ public class ChangeUserServiceTests {
     public void should_VerifyCallDeleteRefreshTokenAndDeleteByIdMethods_when_GivenUserId() {
       changeUserServiceImpl.deleteUser(user.getId());
 
-      verify(tokenService, times(1)).deleteRefreshToken(anyLong());
+      verify(tokenProvider, times(1)).deleteRefreshToken(anyLong());
       verify(userRepository, times(1)).deleteById(anyLong());
     }
   }
@@ -133,7 +133,7 @@ public class ChangeUserServiceTests {
       when(bCryptPasswordEncoder.encode(anyString()))
         .thenReturn(defaultUserEncodePassword);
       when(userRepository.save(any(User.class))).thenReturn(user);
-      when(tokenService.createFullTokens(any(User.class)))
+      when(tokenProvider.createFullTokens(any(User.class)))
         .thenReturn(defaultAccessToken);
 
       CreateUserResponse createUserResponse = changeUserServiceImpl.createUser(
