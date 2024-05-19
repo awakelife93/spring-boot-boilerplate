@@ -2,16 +2,19 @@ package com.example.demo.security.config;
 
 import com.example.demo.common.config.CorsConfig;
 import com.example.demo.security.component.CustomAuthenticationEntryPoint;
-import com.example.demo.security.component.JWTAuthFilter;
+import com.example.demo.security.component.filter.APIKeyAuthFilter;
+import com.example.demo.security.component.filter.JWTAuthFilter;
+import com.example.demo.security.component.provider.AuthProvider;
+import com.example.demo.security.component.provider.JWTProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,29 +26,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
   private final CorsConfig corsConfig;
-  private final JWTAuthFilter jwtAuthFilter;
+  private final AuthProvider authProvider;
+  private final JWTProvider jwtProvider;
   private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-  private final String apiVersion1 = "/api/v1";
 
-  private String[] whiteListDefaultEndpoints() {
-    String[] endPoints = new String[] {
-      "/api-docs/**",
-      "/swagger-ui/**",
-      "/swagger.html",
-      apiVersion1 + "/auth/signIn",
-      apiVersion1 + "/users/register",
-    };
-
-    return endPoints;
-  }
-
-  private String[] whiteListGetEndpoints() {
-    String[] endPoints = new String[] {
-      apiVersion1 + "/users",
-      apiVersion1 + "/posts",
-    };
-
-    return endPoints;
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return webSecurity ->
+      webSecurity
+        .ignoring()
+        .requestMatchers(authProvider.ignoreListDefaultEndpoints());
   }
 
   @Bean
@@ -66,9 +56,7 @@ public class WebSecurityConfig {
       )
       .authorizeHttpRequests(request ->
         request
-          .requestMatchers(whiteListDefaultEndpoints())
-          .permitAll()
-          .requestMatchers(HttpMethod.GET, whiteListGetEndpoints())
+          .requestMatchers(authProvider.whiteListDefaultEndpoints())
           .permitAll()
           .anyRequest()
           .authenticated()
@@ -79,7 +67,11 @@ public class WebSecurityConfig {
         )
       )
       .addFilterBefore(
-        jwtAuthFilter,
+        new JWTAuthFilter(jwtProvider),
+        UsernamePasswordAuthenticationFilter.class
+      )
+      .addFilterAfter(
+        new APIKeyAuthFilter(authProvider),
         UsernamePasswordAuthenticationFilter.class
       )
       .exceptionHandling(exceptionHandling ->
