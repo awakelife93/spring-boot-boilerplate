@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,7 +25,9 @@ public class APIKeyAuthFilter extends OncePerRequestFilter {
     @NonNull FilterChain filterChain
   ) throws IOException, ServletException {
     try {
-      if (!authProvider.validateApiKey(httpServletRequest)) {
+      String apiKey = authProvider.generateRequestAPIKey(httpServletRequest);
+
+      if (Objects.isNull(apiKey) || !authProvider.validateApiKey(apiKey)) {
         throw new APIKeyNotFoundException(httpServletRequest.getRequestURI());
       }
 

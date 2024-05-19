@@ -1,7 +1,6 @@
 package com.example.demo.security.component.provider;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -30,13 +29,11 @@ public class AuthProvider {
     return endPoints;
   }
 
-  public boolean validateApiKey(HttpServletRequest request) {
-    String requestApiKey = request.getHeader("X-API-KEY");
+  public String generateRequestAPIKey(HttpServletRequest request) {
+    return request.getHeader("X-API-KEY");
+  }
 
-    if (!Objects.isNull(requestApiKey)) {
-      return apiKey.equals(requestApiKey);
-    }
-
-    return false;
+  public boolean validateApiKey(String requestAPIKey) {
+    return apiKey.equals(requestAPIKey);
   }
 }
