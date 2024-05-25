@@ -156,7 +156,7 @@ public class UserIntegrationControllerTests extends SecurityItem {
     @Test
     @DisplayName("GET /api/v1/users Response")
     @WithMockCustomUser
-    public void should_ExpectOKResponseToListOfGetUserResponse_when_GivenDefaultPageable()
+    public void should_ExpectOKResponseToListOfGetUserResponse_when_GivenDefaultPageableAndUserIsAuthenticated()
       throws Exception {
       when(getUserServiceImpl.getUserList(any(Pageable.class)))
         .thenReturn(List.of(GetUserResponse.of(user)));
@@ -181,7 +181,7 @@ public class UserIntegrationControllerTests extends SecurityItem {
     @Test
     @DisplayName("Empty GET /api/v1/users Response")
     @WithMockCustomUser
-    public void should_ExpectOKResponseToListOfGetUserResponseIsEmpty_when_GivenDefaultPageable()
+    public void should_ExpectOKResponseToListOfGetUserResponseIsEmpty_when_GivenDefaultPageableAndUserIsAuthenticated()
       throws Exception {
       when(getUserServiceImpl.getUserList(any(Pageable.class)))
         .thenReturn(List.of());
@@ -198,6 +198,21 @@ public class UserIntegrationControllerTests extends SecurityItem {
         .andExpect(jsonPath("$.code").value(commonStatus))
         .andExpect(jsonPath("$.message").value(commonMessage))
         .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    @DisplayName("Unauthorized Exception GET /api/v1/users Response")
+    public void should_ExpectErrorResponseToUnauthorizedException_when_GivenDefaultPageableAndUserIsNotAuthenticated()
+      throws Exception {
+      mockMvc
+        .perform(
+          MockMvcRequestBuilders
+            .get("/api/v1/users")
+            .with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+        )
+        .andExpect(status().isUnauthorized());
     }
   }
 
@@ -534,7 +549,7 @@ public class UserIntegrationControllerTests extends SecurityItem {
   class DeleteUserTest {
 
     @Test
-    @DisplayName("Delete /api/v1/users Response")
+    @DisplayName("DELETE /api/v1/users/{userId} Response")
     @WithMockCustomUser
     public void should_ExpectOKResponse_when_GivenUserIdAndUserIsAuthenticated()
       throws Exception {

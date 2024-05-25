@@ -125,14 +125,14 @@ public class GetUserServiceTests {
       Page<User> userList = new PageImpl<>(List.of(user));
       when(userRepository.findAll(any(Pageable.class))).thenReturn(userList);
 
-      List<GetUserResponse> getUserResponse = getUserServiceImpl.getUserList(
+      List<GetUserResponse> getUserResponseList = getUserServiceImpl.getUserList(
         defaultPageable
       );
 
-      assertThat(getUserResponse).isNotEmpty();
-      assertEquals(getUserResponse.get(0).getEmail(), user.getEmail());
-      assertEquals(getUserResponse.get(0).getName(), user.getName());
-      assertEquals(getUserResponse.get(0).getRole(), user.getRole());
+      assertThat(getUserResponseList).isNotEmpty();
+      assertEquals(getUserResponseList.get(0).getEmail(), user.getEmail());
+      assertEquals(getUserResponseList.get(0).getName(), user.getName());
+      assertEquals(getUserResponseList.get(0).getRole(), user.getRole());
     }
 
     @Test
@@ -143,12 +143,12 @@ public class GetUserServiceTests {
       when(userRepository.findAll(any(Pageable.class)))
         .thenReturn(emptyUserList);
 
-      List<GetUserResponse> getUserResponse = getUserServiceImpl.getUserList(
+      List<GetUserResponse> getUserResponseList = getUserServiceImpl.getUserList(
         defaultPageable
       );
 
-      assertThat(getUserResponse).isEmpty();
-      assertEquals(getUserResponse.size(), 0);
+      assertThat(getUserResponseList).isEmpty();
+      assertEquals(getUserResponseList.size(), 0);
     }
   }
 }

@@ -143,11 +143,11 @@ public class PostController {
     }
   )
   @GetMapping("/exclude-users")
-  public ResponseEntity<List<GetPostResponse>> getExcludeUsersPosts(
+  public ResponseEntity<List<GetPostResponse>> getExcludeUsersPostList(
     @Valid GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   ) {
-    final List<GetPostResponse> listPostResponses = getPostService.getExcludeUsersPosts(
+    final List<GetPostResponse> listPostResponses = getPostService.getExcludeUsersPostList(
       getExcludeUsersPostsRequest,
       pageable
     );

@@ -39,7 +39,7 @@ public class GetPostServiceImpl implements GetPostService {
   }
 
   @Override
-  public List<GetPostResponse> getExcludeUsersPosts(
+  public List<GetPostResponse> getExcludeUsersPostList(
     GetExcludeUsersPostsRequest getExcludeUsersPostsRequest,
     Pageable pageable
   ) {

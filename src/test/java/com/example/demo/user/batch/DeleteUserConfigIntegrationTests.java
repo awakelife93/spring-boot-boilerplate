@@ -81,7 +81,7 @@ public class DeleteUserConfigIntegrationTests {
 
     JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);
 
-    List<DeleteUserItem> deleteUserItems = jdbcTemplate.query(
+    List<DeleteUserItem> deleteUserItemList = jdbcTemplate.query(
       "select * from \"user\" where deleted_dt <= ?",
       new DeleteUserItemRowMapper(),
       now.minusYears(1)
@@ -89,7 +89,7 @@ public class DeleteUserConfigIntegrationTests {
 
     assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
     assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
-    assertThat(deleteUserItems).isEmpty();
-    assertEquals(deleteUserItems.size(), 0);
+    assertThat(deleteUserItemList).isEmpty();
+    assertEquals(deleteUserItemList.size(), 0);
   }
 }
