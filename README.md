@@ -4,7 +4,7 @@
 
 - Application
   - Java / JDK 17
-  - Spring boot 3.1.4
+  - Spring boot 3.3.0
   - Gradle 8.2.1
   - Spring Security 6.1.4
   - Spring Batch 5.0.3
