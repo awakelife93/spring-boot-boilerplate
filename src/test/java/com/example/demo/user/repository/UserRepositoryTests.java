@@ -54,6 +54,7 @@ public class UserRepositoryTests {
   void should_AssertCreatedUserEntity_when_GivenUserEntity() {
     User createUser = userRepository.save(userEntity);
 
+    assertEquals(createUser.getId(), userEntity.getId());
     assertEquals(createUser.getEmail(), userEntity.getEmail());
     assertEquals(createUser.getName(), userEntity.getName());
     assertEquals(createUser.getRole(), userEntity.getRole());
