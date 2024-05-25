@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -29,7 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SQLDelete(
   sql = "UPDATE \"user\" SET deleted_dt = CURRENT_TIMESTAMP WHERE user_id = ?"
 )
-@Where(clause = "deleted_dt IS NULL")
+@SQLRestriction("deleted_dt IS NULL")
 public class User extends BaseSoftDeleteEntity {
 
   @Column(nullable = false)
