@@ -16,6 +16,8 @@
   - Lombok
   - Jwt
   - Validation
+  - Sentry
+  - LogBack
 
 - Test
   - Spring Boot Starter Test
@@ -54,6 +56,7 @@
     - Since this project uses postgresql, the spring.batch.jdbc.initialize-schema: always option does not work.
     - test environment, generating [batch-postgresql-metadata-schema.sql](src/main/resources/sql/batch-postgresql-metadata-schema.sql).
       - [application-test.yml](src/main/resources/application-test.yml)
+
 
 ### Author
 Hyunwoo Park
