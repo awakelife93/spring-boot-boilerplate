@@ -2,23 +2,28 @@ spring:
   config:
     activate:
       on-profile: dev
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    generate-ddl: false
+    open-in-view: false
+    properties:
+      "[hibernate.jdbc.time_zone]": UTC
+      "[hibernate.hbm2ddl.auto]": validate
   batch:
     job:
       enabled: false
       name: ${job.name:NONE}
     jdbc:
       initialize-schema: never
-  jpa:
-    generate-ddl: false
-    properties:
-      "[hibernate.hbm2ddl.auto]": validate
 sentry:
   dsn:
-  traces-sample-rate: 1.0
-  exception-resolver-order: -2147483647
-  max-request-body-size: always
-  send-default-pii: true
-  logging:
-    minimum-event-level: DEBUG
-    minimum-breadcrumb-level: DEBUG
-    enabled: true
+logging:
+  level:
+    "[org.hibernate.SQL]": debug
+    "[org.hibernate.type.descriptor.sql]": trace
+    "[org.hibernate.transaction.JDBCTransaction]": debug
+    "[org.hibernate.jdbc.ConnectionManager]": debug
+    "[org.springframework.orm.JpaTransactionManager]": debug
+    "[org.springframework.jdbc]": debug
+

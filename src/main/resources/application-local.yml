@@ -2,11 +2,20 @@ spring:
   config:
     activate:
       on-profile: local
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    show-sql: true
     generate-ddl: true
     properties:
+      "[hibernate.jdbc.time_zone]": UTC
       "[hibernate.hbm2ddl.auto]": update
       "[hibernate.format_sql]": true
+    defer-datasource-initialization: true
   batch:
     job:
       enabled: false

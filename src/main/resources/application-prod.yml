@@ -3,8 +3,12 @@ spring:
     activate:
       on-profile: prod
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
     generate-ddl: false
+    open-in-view: false
     properties:
+      "[hibernate.jdbc.time_zone]": UTC
       "[hibernate.hbm2ddl.auto]": none
 springdoc:
   swagger-ui:
@@ -13,11 +17,3 @@ springdoc:
     enabled: false
 sentry:
   dsn:
-  traces-sample-rate: 1.0
-  exception-resolver-order: -2147483647
-  max-request-body-size: always
-  send-default-pii: true
-  logging:
-    minimum-event-level: ERROR
-    minimum-breadcrumb-level: DEBUG
-    enabled: true

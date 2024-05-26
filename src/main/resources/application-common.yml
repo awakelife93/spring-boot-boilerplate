@@ -2,12 +2,6 @@ spring:
   config:
     activate:
       on-profile: common
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    database: postgresql
-    open-in-view: false
-    properties:
-      "[hibernate.jdbc.time_zone]": UTC
   mvc:
     log-resolved-exception: false
   web:
@@ -38,3 +32,12 @@ springdoc:
   cache:
     disabled: true
   model-and-view-allowed: true
+sentry:
+  traces-sample-rate: 1.0
+  exception-resolver-order: -2147483647
+  max-request-body-size: always
+  send-default-pii: true
+  logging:
+    minimum-event-level: ERROR
+    minimum-breadcrumb-level: DEBUG
+    enabled: true

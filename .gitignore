@@ -1,6 +1,3 @@
-### Secret
-src/main/resources/application-secret.yml
-
 .DS_Store
 HELP.md
 .gradle
