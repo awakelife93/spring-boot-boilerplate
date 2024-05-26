@@ -6,6 +6,10 @@ spring:
     console:
       enabled: true
       path: /h2-console
+  sql:
+    init:
+      mode: embedded
+      schema-locations: classpath:sql/batch-postgresql-metadata-schema.sql
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     open-in-view: false
