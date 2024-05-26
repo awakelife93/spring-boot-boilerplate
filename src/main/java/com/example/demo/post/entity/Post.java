@@ -18,7 +18,7 @@ import lombok.NonNull;
 
 @Entity
 @Getter
-@Table(name = "post")
+@Table(name = "\"post\"")
 @AttributeOverride(name = "id", column = @Column(name = "post_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseChangerEntity {
