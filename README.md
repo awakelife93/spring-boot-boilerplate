@@ -40,9 +40,10 @@
   - spring security + jwt logic
 - utils
 - resources
-  - prod, dev, local, common, test
+  - prod, dev, local, common, test, secret-{environment}
     - common: Write common variables for the project.
     - test: Create the variables needed for your test environment.
+    - secret-{environment}: auth (jwt, api key), database information
 
 ### Note
 - cors
