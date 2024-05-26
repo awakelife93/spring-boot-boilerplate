@@ -12,3 +12,13 @@ spring:
     generate-ddl: false
     properties:
       "[hibernate.hbm2ddl.auto]": validate
+sentry:
+  dsn:
+  traces-sample-rate: 1.0
+  exception-resolver-order: -2147483647
+  max-request-body-size: always
+  send-default-pii: true
+  logging:
+    minimum-event-level: DEBUG
+    minimum-breadcrumb-level: DEBUG
+    enabled: true
