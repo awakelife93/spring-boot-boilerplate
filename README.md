@@ -10,6 +10,7 @@
   - Spring Batch 5.0.3
   - Springdoc OpenAPI
   - Postgresql
+  - h2 database (PostgreSQL mode) - localhost environment
   - Jpa
   - QueryDSL
   - Redis
@@ -39,8 +40,7 @@
   - spring security + jwt logic
 - utils
 - resources
-  - prod, dev, local, common, secret, test
-    - secret: Write variables that need to be hidden.
+  - prod, dev, local, common, test
     - common: Write common variables for the project.
     - test: Create the variables needed for your test environment.
 
@@ -49,12 +49,10 @@
   - This project used **spring security** rather than WebMvcConfigurer for the cors environment.
 - docker-compose
   - If you plan to use it, you need to check the environment variables.
-- application-secret.yml
-  - application-secret.yml is git ignore, please check the example file.
 - create spring batch metadata table (localhost, development and production environments.)
   - Run your ddl script or Please refer to [github - spring batch ](https://github.com/spring-projects/spring-batch/blob/5.0.x/spring-batch-core/src/main/resources/org/springframework/batch/core/schema-postgresql.sql)
     - Since this project uses postgresql, the spring.batch.jdbc.initialize-schema: always option does not work.
-    - test environment, generating [batch-postgresql-metadata-schema.sql](src/main/resources/sql/batch-postgresql-metadata-schema.sql).
+    - localhost & test environment, generating [batch-postgresql-metadata-schema.sql](src/main/resources/sql/batch-postgresql-metadata-schema.sql).
       - [application-test.yml](src/main/resources/application-test.yml)
 
 

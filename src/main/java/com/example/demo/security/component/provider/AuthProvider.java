@@ -15,6 +15,7 @@ public class AuthProvider {
       "/api-docs/**",
       "/swagger-ui/**",
       "/swagger.html",
+      "/h2-console/**",
     };
 
     return endPoints;

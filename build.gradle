@@ -68,6 +68,9 @@ dependencies {
   implementation 'io.sentry:sentry-spring-boot-starter-jakarta:7.9.0'
   implementation 'io.sentry:sentry-logback:7.9.0'
 
+  // h2
+  runtimeOnly "com.h2database:h2"
+
   // for apple chip
   implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 
@@ -76,7 +79,6 @@ dependencies {
   testImplementation 'org.springframework.security:spring-security-test'
   testImplementation 'org.springframework.batch:spring-batch-test'
   testImplementation 'org.instancio:instancio-junit:4.5.1'
-  testRuntimeOnly "com.h2database:h2"
 }
 
 tasks.named('test') {
