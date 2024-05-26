@@ -18,6 +18,8 @@ spring:
       initialize-schema: never
 sentry:
   dsn:
+  logging:
+    minimum-event-level: DEBUG
 logging:
   level:
     "[org.hibernate.SQL]": debug
