@@ -55,7 +55,7 @@
 - create spring batch metadata table (localhost, development and production environments.)
   - Run your ddl script or Please refer to [github - spring batch ](https://github.com/spring-projects/spring-batch/blob/5.0.x/spring-batch-core/src/main/resources/org/springframework/batch/core/schema-postgresql.sql)
     - Since this project uses postgresql, the spring.batch.jdbc.initialize-schema: always option does not work.
-    - localhost & test environment, generating [batch-postgresql-metadata-schema.sql](src/main/resources/sql/batch-postgresql-metadata-schema.sql).
+    - localhost & test environment, generating [batch-postgresql-metadata-schema.sql](src/main/resources/db/sql/batch-postgresql-metadata-schema.sql).
       - [application-test.yml](src/main/resources/application-test.yml)
 
 ### Author
