@@ -9,17 +9,12 @@ spring:
   sql:
     init:
       mode: embedded
-      schema-locations: classpath:sql/batch-postgresql-metadata-schema.sql
+      schema-locations: classpath:db/sql/batch-postgresql-metadata-schema.sql
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    open-in-view: false
     show-sql: true
-    generate-ddl: true
     properties:
-      "[hibernate.jdbc.time_zone]": UTC
-      "[hibernate.hbm2ddl.auto]": update
       "[hibernate.format_sql]": true
-    defer-datasource-initialization: true
   batch:
     job:
       enabled: false
