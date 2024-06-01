@@ -29,9 +29,10 @@ public class SecurityUtils {
     );
 
     log.error(
-      "Security Filter sendErrorResponse - {} {} {}",
+      "Security Filter sendErrorResponse - {} {} {} {}",
       httpServletRequest.getMethod(),
       httpServletRequest.getRequestURI(),
+      message,
       exception.getMessage()
     );
 
