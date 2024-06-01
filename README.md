@@ -19,6 +19,7 @@
   - Validation
   - Sentry
   - LogBack
+  - Flyway
 
 - Test
   - Spring Boot Starter Test
@@ -28,6 +29,7 @@
   - Mockito
   - Instancio
   - h2 database (PostgreSQL mode)
+  - Flyway
 
 - Tools
   - Pgadmin
@@ -45,7 +47,7 @@
     - test: Create the variables needed for your test environment.
     - secret-{environment}: auth (jwt, api key), database information
 
-### Note
+### Description
 - cors
   - This project used **spring security** rather than WebMvcConfigurer for the cors environment.
 - docker-compose
@@ -55,7 +57,6 @@
     - Since this project uses postgresql, the spring.batch.jdbc.initialize-schema: always option does not work.
     - localhost & test environment, generating [batch-postgresql-metadata-schema.sql](src/main/resources/sql/batch-postgresql-metadata-schema.sql).
       - [application-test.yml](src/main/resources/application-test.yml)
-
 
 ### Author
 Hyunwoo Park
